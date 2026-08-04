@@ -1,0 +1,22 @@
+:root{
+--space-1:4px;
+--space-2:8px;
+--space-3:12px;
+--space-4:16px;
+--space-5:24px;
+--space-6:32px;
+--space-7:48px;
+--space-8:64px;
+--space-9:96px;
+--space-10:128px;
+--radius-sm:4px;
+--radius-md:8px;
+--radius-lg:14px;
+--radius-pill:999px;
+--shadow-card:0 1px 2px rgba(38,0,77,0.05), 0 8px 24px rgba(38,0,77,0.06);
+--shadow-lifted:0 4px 8px rgba(38,0,77,0.08), 0 16px 40px rgba(38,0,77,0.1);
+--shadow-float:0 10px 30px rgba(0,0,0,0.45);
+--shadow-glow-coral:0 14px 36px rgba(239,176,161,0.5), 0 4px 16px rgba(0,0,0,0.4);
+--container-max:1120px;
+--container-narrow:680px;
+}

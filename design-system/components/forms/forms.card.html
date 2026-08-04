@@ -1,0 +1,31 @@
+<!-- @dsCard group="Components" viewport="700x520" name="Forms" subtitle="Text field, single-select option, multi-select song row" -->
+<html><head><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:28px;display:flex;flex-direction:column;gap:20px;background:var(--surface-page)}</style>
+</head><body>
+<div id="root"></div>
+<script type="text/babel">
+const { Input, OptionCard, SongRow, HeartToggle } = window.BoujeeMusicMatchmakerDesignSystem_bdd5f9;
+function Demo(){
+  const [song1,setSong1]=React.useState(true);
+  const [song2,setSong2]=React.useState(false);
+  const [opt,setOpt]=React.useState('party');
+  return (<>
+    <Input label="Partner's name" placeholder="e.g. Alex" />
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <OptionCard label="Live music that gets everyone up and dancing" selected={opt==='party'} onClick={()=>setOpt('party')} />
+      <OptionCard label="A mix of the two" sublabel="Confident enthusiasm, either way" selected={opt==='mix'} onClick={()=>setOpt('mix')} />
+    </div>
+    <div style={{border:'1px solid var(--border-hairline)',borderRadius:8,overflow:'hidden'}}>
+      <SongRow title="Mr Brightside" artist="The Killers" selected={song1} onClick={()=>setSong1(!song1)} />
+      <SongRow title="Sex on Fire" artist="Kings of Leon" selected={song2} onClick={()=>setSong2(!song2)} />
+    </div>
+    <div style={{display:'flex',gap:12}}><HeartToggle selected={false}/><HeartToggle selected={true}/></div>
+  </>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
+</body></html>

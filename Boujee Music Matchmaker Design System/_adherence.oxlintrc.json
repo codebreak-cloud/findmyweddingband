@@ -1,0 +1,320 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "components/feedback/**",
+              "components/forms/**",
+              "ui_kits/landing/**",
+              "ui_kits/quiz/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Montserrat|Amsterdam Signature))/i]",
+        "message": "Font not provided by the design system. Available: Montserrat, Amsterdam Signature."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|disabled|children|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, disabled, children, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|ghost|onInk)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'ghost' | 'onInk'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HeartToggle'] > JSXAttribute > JSXIdentifier[name!=/^(?:selected|size|onClick|as|key|ref|className|style|children)$/]",
+        "message": "<HeartToggle> doesn't accept that prop. Declared props: selected, size, onClick, as."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HeartToggle'] > JSXAttribute[name.name='as'] > Literal[value!=/^(?:button|span)$/]",
+        "message": "<HeartToggle> as must be one of 'button' | 'span'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|type|placeholder|value|onChange|error|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label, type, placeholder, value, onChange, error."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='LoadingBeat'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|key|ref|className|style|children)$/]",
+        "message": "<LoadingBeat> doesn't accept that prop. Declared props: label."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MatchBadge'] > JSXAttribute > JSXIdentifier[name!=/^(?:percent|size|key|ref|className|style|children)$/]",
+        "message": "<MatchBadge> doesn't accept that prop. Declared props: percent, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='OptionCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|sublabel|selected|onClick|key|ref|className|style|children)$/]",
+        "message": "<OptionCard> doesn't accept that prop. Declared props: label, sublabel, selected, onClick."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProgressRing'] > JSXAttribute > JSXIdentifier[name!=/^(?:progress|size|closed|key|ref|className|style|children)$/]",
+        "message": "<ProgressRing> doesn't accept that prop. Declared props: progress, size, closed."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SongRow'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|artist|selected|onClick|key|ref|className|style|children)$/]",
+        "message": "<SongRow> doesn't accept that prop. Declared props: title, artist, selected, onClick."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "HeartToggle": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "LoadingBeat": {
+        "replaces": []
+      },
+      "MatchBadge": {
+        "replaces": []
+      },
+      "OptionCard": {
+        "replaces": []
+      },
+      "ProgressRing": {
+        "replaces": []
+      },
+      "SongRow": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--action-on-ink-bg",
+      "--action-on-ink-text",
+      "--action-primary-bg",
+      "--action-primary-bg-hover",
+      "--action-primary-text",
+      "--border-focus",
+      "--border-hairline",
+      "--border-selected",
+      "--bulb-lit",
+      "--bulb-unlit",
+      "--color-body",
+      "--color-coral",
+      "--color-coral-deep",
+      "--color-error",
+      "--color-error-tint",
+      "--color-hairline",
+      "--color-hairline-on-ink",
+      "--color-ice",
+      "--color-ink",
+      "--color-ink-soft",
+      "--color-muted",
+      "--color-paper",
+      "--color-white",
+      "--container-max",
+      "--container-narrow",
+      "--duotone-highlight",
+      "--duotone-highlight-cool",
+      "--duotone-shadow",
+      "--dur-deliberate",
+      "--dur-loading",
+      "--dur-quick",
+      "--dur-standard",
+      "--ease-press",
+      "--ease-settle",
+      "--ease-standard",
+      "--font-sans",
+      "--font-script",
+      "--fs-body",
+      "--fs-body-lg",
+      "--fs-display",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-meta",
+      "--fs-question",
+      "--fs-script-band",
+      "--fs-script-percent",
+      "--fs-script-reveal",
+      "--fs-small",
+      "--fw-black",
+      "--fw-bold",
+      "--fw-extrabold",
+      "--fw-medium",
+      "--fw-regular",
+      "--fw-semibold",
+      "--ground-end",
+      "--ground-start",
+      "--lh-body",
+      "--lh-hero",
+      "--lh-snug",
+      "--lh-tight",
+      "--ls-meta",
+      "--ls-tight",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-pill",
+      "--radius-sm",
+      "--shadow-card",
+      "--shadow-float",
+      "--shadow-glow-coral",
+      "--shadow-lifted",
+      "--space-1",
+      "--space-10",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--surface-card",
+      "--surface-coral",
+      "--surface-cream",
+      "--surface-ice",
+      "--surface-ink",
+      "--surface-page",
+      "--surface-selected",
+      "--text-body",
+      "--text-heading",
+      "--text-inverse",
+      "--text-muted",
+      "--text-on-coral"
+    ],
+    "tokenKinds": {
+      "--color-ink": "color",
+      "--color-ink-soft": "color",
+      "--color-coral": "color",
+      "--color-coral-deep": "color",
+      "--color-ice": "color",
+      "--color-paper": "color",
+      "--color-body": "color",
+      "--color-white": "color",
+      "--color-muted": "color",
+      "--color-hairline": "color",
+      "--color-hairline-on-ink": "color",
+      "--color-error": "color",
+      "--color-error-tint": "color",
+      "--surface-cream": "color",
+      "--ground-start": "color",
+      "--ground-end": "color",
+      "--bulb-unlit": "color",
+      "--bulb-lit": "color",
+      "--surface-page": "color",
+      "--surface-ice": "color",
+      "--surface-ink": "color",
+      "--surface-coral": "color",
+      "--surface-card": "color",
+      "--surface-selected": "color",
+      "--text-heading": "font",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-inverse": "font",
+      "--text-on-coral": "font",
+      "--border-hairline": "color",
+      "--border-selected": "color",
+      "--border-focus": "color",
+      "--action-primary-bg": "color",
+      "--action-primary-bg-hover": "color",
+      "--action-primary-text": "font",
+      "--action-on-ink-bg": "color",
+      "--action-on-ink-text": "font",
+      "--duotone-shadow": "shadow",
+      "--duotone-highlight": "color",
+      "--duotone-highlight-cool": "color",
+      "--font-sans": "font",
+      "--font-script": "font",
+      "--fs-display": "other",
+      "--fs-h1": "other",
+      "--fs-question": "other",
+      "--fs-h2": "other",
+      "--fs-script-reveal": "other",
+      "--lh-hero": "other",
+      "--fs-body-lg": "other",
+      "--fs-body": "other",
+      "--fs-small": "other",
+      "--fs-meta": "other",
+      "--fs-script-band": "other",
+      "--fs-script-percent": "other",
+      "--lh-tight": "other",
+      "--lh-snug": "other",
+      "--lh-body": "other",
+      "--ls-tight": "other",
+      "--ls-meta": "other",
+      "--fw-regular": "other",
+      "--fw-medium": "other",
+      "--fw-semibold": "other",
+      "--fw-bold": "other",
+      "--fw-extrabold": "other",
+      "--fw-black": "other",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--space-10": "spacing",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-pill": "radius",
+      "--shadow-card": "shadow",
+      "--shadow-lifted": "shadow",
+      "--shadow-float": "shadow",
+      "--shadow-glow-coral": "shadow",
+      "--container-max": "spacing",
+      "--container-narrow": "spacing",
+      "--ease-standard": "other",
+      "--ease-settle": "other",
+      "--ease-press": "other",
+      "--dur-quick": "other",
+      "--dur-standard": "other",
+      "--dur-deliberate": "other",
+      "--dur-loading": "other"
+    },
+    "fontFamilies": [
+      "Amsterdam Signature",
+      "Montserrat"
+    ]
+  }
+}

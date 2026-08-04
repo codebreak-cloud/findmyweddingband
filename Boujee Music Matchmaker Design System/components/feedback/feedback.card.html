@@ -1,0 +1,25 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Feedback" subtitle="Progress ring, disco-ball match badge and the loading beat" -->
+<html><head><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:28px;background:var(--surface-page)}</style>
+</head><body>
+<div id="root"></div>
+<script type="text/babel">
+const { ProgressRing, MatchBadge, LoadingBeat } = window.BoujeeMusicMatchmakerDesignSystem_bdd5f9;
+function Demo(){
+  return (<div style={{display:'flex',gap:48,alignItems:'center',flexWrap:'wrap'}}>
+    <div style={{display:'flex',gap:20,alignItems:'center'}}>
+      <ProgressRing progress={0.15} />
+      <ProgressRing progress={0.6} />
+      <ProgressRing closed />
+    </div>
+    <MatchBadge percent={92} size={160} />
+    <LoadingBeat />
+  </div>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
+</body></html>

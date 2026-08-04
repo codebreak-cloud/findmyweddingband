@@ -1,0 +1,27 @@
+:root{
+--font-sans:'Montserrat',sans-serif;
+--font-script:'Amsterdam Signature',cursive;
+--fs-display:clamp(2.75rem,2rem + 4.5vw,6.75rem);/* @kind other */
+--fs-h1:clamp(2rem,1.5rem + 2.4vw,4rem);/* @kind other */
+--fs-question:clamp(2.5rem,2.2rem + 1.5vw,3.25rem);/* @kind other */
+--fs-h2:clamp(1.5rem,1.3rem + 1vw,2.25rem);/* @kind other */
+--fs-script-reveal:clamp(6rem,4.5rem + 8vw,10rem);/* @kind other */
+--lh-hero:0.98;/* @kind other */
+--fs-body-lg:1.25rem;/* @kind other */
+--fs-body:1.0625rem;/* @kind other */
+--fs-small:0.9375rem;/* @kind other */
+--fs-meta:0.75rem;/* @kind other */
+--fs-script-band:clamp(2.5rem,2rem + 2.4vw,4rem);/* @kind other */
+--fs-script-percent:clamp(4.5rem,3.5rem + 5vw,8rem);/* @kind other */
+--lh-tight:0.95;/* @kind other */
+--lh-snug:1.05;/* @kind other */
+--lh-body:1.6;/* @kind other */
+--ls-tight:-0.03em;/* @kind other */
+--ls-meta:0.12em;/* @kind other */
+--fw-regular:400;/* @kind other */
+--fw-medium:500;/* @kind other */
+--fw-semibold:600;/* @kind other */
+--fw-bold:700;/* @kind other */
+--fw-extrabold:800;/* @kind other */
+--fw-black:900;/* @kind other */
+}

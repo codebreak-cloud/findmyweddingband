@@ -1,0 +1,12 @@
+:root{
+--ease-standard:cubic-bezier(.4,0,.2,1);/* @kind other */
+--ease-settle:cubic-bezier(.22,1,.36,1);/* @kind other */
+--ease-press:cubic-bezier(.34,1.56,.64,1);/* @kind other */
+--dur-quick:150ms;/* @kind other */
+--dur-standard:200ms;/* @kind other */
+--dur-deliberate:250ms;/* @kind other */
+--dur-loading:2400ms;/* @kind other */
+}
+@media (prefers-reduced-motion: reduce){
+*{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important;}
+}
