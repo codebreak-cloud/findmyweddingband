@@ -295,7 +295,8 @@ function LeadCapture({ onSubmit, results, path }) {
       });
 
       // Send to MailerLite Zapier webhook using sendBeacon (avoids CORS)
-      navigator.sendBeacon('https://hooks.zapier.com/hooks/catch/20476458/46innpm/', JSON.stringify(payload));
+      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      navigator.sendBeacon('https://hooks.zapier.com/hooks/catch/20476458/46innpm/', blob);
     } catch (err) {
       console.error('Webhook error:', err);
     } finally {
