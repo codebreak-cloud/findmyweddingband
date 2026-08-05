@@ -294,12 +294,12 @@ function LeadCapture({ onSubmit, results, path }) {
         body: JSON.stringify(payload)
       });
 
-      // Send to MailerLite Zapier webhook using sendBeacon (avoids CORS)
-      const formData = new FormData();
-      Object.keys(payload).forEach(key => {
-        formData.append(key, typeof payload[key] === 'object' ? JSON.stringify(payload[key]) : payload[key]);
-      });
-      navigator.sendBeacon('https://hooks.zapier.com/hooks/catch/20476458/46innpm/', formData);
+      // Send to MailerLite Zapier webhook (no CORS issues with no-cors mode)
+      fetch('https://hooks.zapier.com/hooks/catch/20476458/46innpm/', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(payload)
+      }).catch(err => console.error('Zapier webhook error:', err));
     } catch (err) {
       console.error('Webhook error:', err);
     } finally {
