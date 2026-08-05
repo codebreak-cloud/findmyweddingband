@@ -250,14 +250,40 @@ function Q9Q10({ onAnswer }) {
   );
 }
 
-function LeadCapture({ onSubmit }) {
+function LeadCapture({ onSubmit, results, path }) {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const isValidEmail = (emailStr) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(emailStr);
+  };
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        name,
+        email,
+        phone,
+        path,
+        results,
+        submittedAt: new Date().toISOString()
+      };
+
+      await fetch('https://ai.codebreak.co.uk/api/webhook/b17b4115-3ad7-45c4-be24-4efc8fc9df77/ed6e19b9-2fe3-4a8a-abcb-9f4fd0211eef', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Webhook error:', err);
+    } finally {
+      setIsSubmitting(false);
+      onSubmit({ name, email, phone });
+    }
   };
 
   return (
@@ -277,7 +303,7 @@ function LeadCapture({ onSubmit }) {
         <Input label="Phone" type="tel" placeholder="e.g. +44 20 7946 0958" value={phone} onChange={e => setPhone(e.target.value)} />
       </div>
       <p style={{ fontSize: 'var(--fs-meta)', color: 'rgba(255,253,251,0.6)', marginBottom: 20 }}>By submitting your details, you're giving us permission to contact you about your match. See our <a href="https://boujeemusic.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-coral)', textDecoration: 'none', borderBottom: '1px solid var(--color-coral)' }}>privacy policy</a> for more.</p>
-      <Button variant="onInk" size="lg" disabled={!name || !isValidEmail(email)} onClick={() => onSubmit({ name, email, phone })}>Reveal my match</Button>
+      <Button variant="onInk" size="lg" disabled={!name || !isValidEmail(email) || isSubmitting} onClick={handleSubmit}>{isSubmitting ? 'Submitting...' : 'Reveal my match'}</Button>
     </Question>
   );
 }
@@ -872,7 +898,7 @@ function QuizApp({ backdrop }) {
       {step === 'q7' && <Shell litCount={6} backdrop={backdrop} onBack={() => advance('q6', litCount)}><TasteQuestion onAnswer={() => advance('q8', 7)} /></Shell>}
       {step === 'q8' && <Shell litCount={7} backdrop={backdrop} onBack={() => advance('q7', 6)}><Q8 onAnswer={(v) => advance(v === 'none' ? 'q11' : 'q9', 8)} /></Shell>}
       {step === 'q9' && <Shell litCount={8} backdrop={backdrop} onBack={() => advance('q8', 7)}><Q9Q10 onAnswer={() => advance('q11', 10)} /></Shell>}
-      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} /></Shell>}
+      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} results={results} path={path} /></Shell>}
       {step === 'loading' && <Shell hideChrome backdrop={backdrop}><Loading onDone={() => setStep('results')} /></Shell>}
       {step === 'results' && <Results results={results} backdrop={backdrop} />}
     </>
