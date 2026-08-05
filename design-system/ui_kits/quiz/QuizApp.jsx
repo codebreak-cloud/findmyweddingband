@@ -273,13 +273,39 @@ function LeadCapture({ onSubmit, results, path }) {
         submittedAt: new Date().toISOString()
       };
 
+      // Send to webhook
       await fetch('https://ai.codebreak.co.uk/api/webhook/b17b4115-3ad7-45c4-be24-4efc8fc9df77/ed6e19b9-2fe3-4a8a-abcb-9f4fd0211eef', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+
+      // Add to MailerLite with tags
+      const tags = ['Quiz Lead'];
+      results.forEach(r => {
+        const bandName = BANDS[r.result.winner].name;
+        tags.push(`${bandName} Result`);
+      });
+
+      const mailerlitePayload = {
+        email,
+        name,
+        tags,
+        custom_fields: {
+          phone
+        }
+      };
+
+      await fetch('https://api.mailerlite.com/api/v1/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MailerLite-Token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiZjA4M2Y4OThjMDI1MjJjYzIzYjQxNzdkNzhmZjc2YmQ4NTA2YzA4ZmM2YjE5ZjE0NWZlYWUwZWUxYWUxNTM1NGNlZWFkNDAzMmZiMzExYTYiLCJpYXQiOjE3ODU5MzUxMjAuMTQ5NTE5LCJuYmYiOjE3ODU5MzUxMjAuMTQ5NTUyMiwiZXhwIjo0OTQxNjA4NzIwLjE0MTc5NCwic3ViIjoiMTg4OTcwNCIsInNjb3BlcyI6W119.JOzeVRTSPbj5N4ZcEk0xI4ui1N1IFT1KltuCnvf7yRV4Xm0a_R_67CpYGnIK5Q0W9nFKoRgrmLtMa6Xta8HCBCfQEnbiAoWznxi5FGBAegb1j5SYgge64SQ6WIICuL-IX7NCfRHgNfgOUZTqP8PF7Uk7UBJYIWZ01q3iCV6LWy_uh0NN9KRDbGoNhdVsGHjeqxlk6KWmKFUAZ6fQRMO_fEsX-EIjWeQv_i5BhZwZbTu591CLqr2kUrE40RL57_E0eRg3hlWODf1cuuwQ4TtVXLJ14kcO6m0qoYwoXPVqKLIctZQ_pTcniG0ys9SSvebtecTimZSu6R3GKZj5vfqEKCTMriicog23v9lW-QnZL711EWsNaGSPtIEUFdWUzOgkc45Ifbhm8mRQJLyWPTv0bLzSVVYBd5Z4gUIOcNpObAfaAiCvo6-lkPd_Dv0fiC-3EhqlxAVyvURZlZ7rtYYae-qTkom2okl0N5GC5DtHLsPOsbS5gd35Pb6IHya9S-hmrfisNigcAdZJUw1auI9PsTM5b9_0NKgsHm9GY_ayjM7Ztr8vYnE2oTIT8b_4_Yevnv7lwaXaIY898_29Uqn7fdK61sQJg_iYBssNgZabXAahuhBdVcvv-_QzkrOKp8--OJYouYq9Sc3ERynytYmgFlSMBfb_wkE8LGlG7vSnpoQ'
+        },
+        body: JSON.stringify(mailerlitePayload)
+      });
     } catch (err) {
-      console.error('Webhook error:', err);
+      console.error('Error:', err);
     } finally {
       setIsSubmitting(false);
       onSubmit({ name, email, phone });
