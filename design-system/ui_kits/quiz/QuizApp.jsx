@@ -282,15 +282,22 @@ function LeadCapture({ onSubmit, results, path }) {
 
       // Add to MailerLite with tags
       const tags = ['Quiz Lead'];
+      let notes = `Quiz Path: ${path === 'all-day' ? 'All Day' : 'Evening Only'}\n\n`;
+
       results.forEach(r => {
         const bandName = BANDS[r.result.winner].name;
         tags.push(`${bandName} Result`);
+        notes += `${r.path.charAt(0).toUpperCase() + r.path.slice(1)} Match:\n`;
+        notes += `- Band: ${bandName}\n`;
+        notes += `- Match: ${r.result.pct}%\n`;
+        notes += `- Songs: ${r.result.namedPicks.join(', ')}\n\n`;
       });
 
       const mailerlitePayload = {
         email,
         name,
         tags,
+        notes,
         custom_fields: {
           phone
         }
