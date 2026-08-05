@@ -250,7 +250,7 @@ function Q9Q10({ onAnswer }) {
   );
 }
 
-function LeadCapture({ onSubmit, results, path }) {
+function LeadCapture({ onSubmit, results, path, venue, weddingDate }) {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
@@ -280,6 +280,8 @@ function LeadCapture({ onSubmit, results, path }) {
         name,
         email,
         phone,
+        venue,
+        weddingDate,
         path,
         results,
         tags,
@@ -894,6 +896,8 @@ function QuizApp({ backdrop }) {
   const [results, setResults] = React.useState([]);
   const [litCount, setLitCount] = React.useState(0);
   const [atmoBand, setAtmoBand] = React.useState(null);
+  const [venue, setVenue] = React.useState('');
+  const [weddingDate, setWeddingDate] = React.useState('');
 
   function advance(nextStep, lit) {
     setStep(nextStep);
@@ -919,8 +923,8 @@ function QuizApp({ backdrop }) {
       {step === 'q6' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q5', litCount - 1)}><SongPick n={6} path="evening" onAnswer={(picks) => afterEvening(scorePath(picks, EVENING_SONGS, atmoBand))} /></Shell>}
       {step === 'q7' && <Shell litCount={6} backdrop={backdrop} onBack={() => advance('q6', litCount)}><TasteQuestion onAnswer={() => advance('q8', 7)} /></Shell>}
       {step === 'q8' && <Shell litCount={7} backdrop={backdrop} onBack={() => advance('q7', 6)}><Q8 onAnswer={(v) => advance(v === 'none' ? 'q11' : 'q9', 8)} /></Shell>}
-      {step === 'q9' && <Shell litCount={8} backdrop={backdrop} onBack={() => advance('q8', 7)}><Q9Q10 onAnswer={() => advance('q11', 10)} /></Shell>}
-      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} results={results} path={path} /></Shell>}
+      {step === 'q9' && <Shell litCount={8} backdrop={backdrop} onBack={() => advance('q8', 7)}><Q9Q10 onAnswer={(data) => { setVenue(data.venue); setWeddingDate(data.date); advance('q11', 10); }} /></Shell>}
+      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} results={results} path={path} venue={venue} weddingDate={weddingDate} /></Shell>}
       {step === 'loading' && <Shell hideChrome backdrop={backdrop}><Loading onDone={() => setStep('results')} /></Shell>}
       {step === 'results' && <Results results={results} backdrop={backdrop} />}
     </>
