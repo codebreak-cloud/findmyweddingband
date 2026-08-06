@@ -205,24 +205,23 @@ function TasteQuestion({ onAnswer }) {
   const [sel, setSel] = React.useState(null);
   const [partnerName, setPartnerName] = React.useState('');
 
-  React.useEffect(() => {
+  const handleContinue = () => {
     if (sel !== null && partnerName.trim()) {
-      setTimeout(() => onAnswer({ tasteSelection: sel, partnerName: partnerName.trim() }), 380);
+      onAnswer({ tasteSelection: sel, partnerName: partnerName.trim() });
     }
-  }, [sel, partnerName, onAnswer]);
-
-  const handleAnswer = (i) => {
-    setSel(i);
   };
+
+  const isComplete = sel !== null && partnerName.trim();
 
   return (
     <Question n={7} title="You and your partner's music taste is...">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
-        {opts.map((l, i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => handleAnswer(i)} />)}
+        {opts.map((l, i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => setSel(i)} />)}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
         <Input label="Partner's name" placeholder="e.g. Alex" value={partnerName} onChange={e => setPartnerName(e.target.value)} />
       </div>
+      <Button disabled={!isComplete} onClick={handleContinue}>Continue</Button>
     </Question>
   );
 }
