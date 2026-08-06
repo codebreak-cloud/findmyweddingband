@@ -88,7 +88,7 @@ function Hero() {
         <h1 className="bq-hero-headline">The Wedding Band Matchmaker</h1>
         <p className="bq-hero-tagline">The quiz that helps you discover the perfect style of band to suit your wedding, your vibe, and your guests.</p>
         <div className="bq-hero-cta"><Button variant="onInk" size="lg" onClick={() => { window.location.href = '../quiz/index.html'; }}>Find My Match</Button></div>
-        <p className="bq-hero-testi"><span className="bq-hero-testi-mark" aria-hidden="true">&ldquo;</span><span className="bq-hero-testi-text">"It felt like it was made for us." - Sam &amp; Priya, Elmore Court, June 2025</span></p>
+        <p className="bq-hero-testi"><span className="bq-hero-testi-mark" aria-hidden="true">&ldquo;</span><span className="bq-hero-testi-text">"This band made our wedding - I am biased but best wedding I've ever been to." - Stephanie &amp; David</span></p>
       </div>
     </div>
   );
@@ -185,20 +185,20 @@ function WhatsWaiting() {
 
 function Testimonials() {
   const quotes = [
-    ['"We knew within a minute of the video which one was us."', 'Freya & Tom', 'Aynhoe Park, May 2025'],
-    ['"It felt like it was made for our wedding specifically."', 'Sam & Priya', 'Elmore Court, June 2025'],
-    ['"No pressure, no pitch - just a genuinely good match."', 'Louis & Ines', 'The Barn at Bury Court, Sept 2025'],
+    ['"From the first song to the last, the dance floor was full."', 'Amber & Dan', '../../assets/images/headshot-amber-dan.jpg'],
+    ['"The best decision we made, and so easy to have only one supplier to deal with for it all."', 'Dawn & Ashley', '../../assets/images/headshot-dawn-ashley.jpg'],
+    ['"You kept me, a self-confessed non-dancer, on the dance floor all night!"', 'Georgia & Jade', '../../assets/images/headshot-georgia-jade.jpg'],
   ];
   const { ref, isVisible } = useScrollReveal();
   return (
     <Section bg="var(--color-ice)">
       <h2 style={{ fontSize: 'var(--fs-h1)', marginBottom: 'var(--space-7)', textAlign: 'center' }}>Couples who found their match</h2>
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-5)' }}>
-        {quotes.map(([q, n, v], i) => (
+        {quotes.map(([q, n, img], i) => (
           <div key={i} style={{
             background: 'var(--color-paper)',
             borderRadius: 'var(--radius-lg)',
-            padding: 'var(--space-6)',
+            overflow: 'hidden',
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
             transition: 'opacity 600ms var(--ease-settle), transform 600ms var(--ease-settle), transform 200ms var(--ease-standard)',
@@ -213,8 +213,11 @@ function Testimonials() {
             e.currentTarget.style.transform = isVisible ? 'translateY(0)' : 'translateY(20px)';
             e.currentTarget.style.boxShadow = 'none';
           }}>
-            <p style={{ fontWeight: 'var(--fw-semibold)', color: 'var(--color-ink)', margin: 0, marginBottom: 'var(--space-4)' }}>{q}</p>
-            <div style={{ fontSize: 'var(--fs-small)', color: 'var(--text-muted)' }}>{n} - {v}</div>
+            <img src={img} alt={n} style={{ width: '100%', height: '300px', objectFit: 'cover', display: 'block' }} />
+            <div style={{ padding: 'var(--space-6)' }}>
+              <p style={{ fontWeight: 'var(--fw-semibold)', color: 'var(--color-ink)', margin: 0, marginBottom: 'var(--space-3)' }}>{q}</p>
+              <div style={{ fontSize: 'var(--fs-small)', color: 'var(--text-muted)' }}>{n}</div>
+            </div>
           </div>
         ))}
       </div>
