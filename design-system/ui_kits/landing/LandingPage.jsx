@@ -118,7 +118,7 @@ function Problem() {
           </p>
         </div>
         <div className="problem-image" style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', height: '100%', minHeight: '400px' }}>
-          <img src="../../assets/images/Jazz-Sax-on-Dancefloor.jpg.webp" alt="Jazz saxophonist on dancefloor" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="../../assets/images/band-vocalist-crowd.jpg" alt="Vocalists performing on dance floor with crowd" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       </div>
     </Section>
@@ -176,21 +176,10 @@ function WhatsWaiting() {
               Your match isn't just a band name. It's the style that suits your day and your guests, whether that's a roaming acoustic set breaking the ice during drinks, stylish jazz musicians to carry the meal, or the show band that brings the party and keeps the dance floor full to the last song. You'll see it, hear it, and know what your day could feel like.
             </p>
           </div>
-          <DuotoneBand src="../../assets/images/landing-wedding-1.webp" height={340} tone="ice" />
+          <img src="../../assets/images/band-first-dance.jpg" alt="Couple's first dance with band" style={{ width: '100%', height: '340px', objectFit: 'cover', borderRadius: 'var(--radius-lg)' }} />
         </div>
       </Section>
     </div>
-  );
-}
-
-function BandShowcase() {
-  return (
-    <Section bg="var(--color-ice)">
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-7)', alignItems: 'stretch' }}>
-        <img src="../../assets/images/band-vocalist-crowd.jpg" alt="Band vocalist on dance floor with crowd" style={{ width: '100%', height: '100%', minHeight: '300px', objectFit: 'cover', borderRadius: 'var(--radius-lg)' }} />
-        <img src="../../assets/images/band-first-dance.jpg" alt="Couple's first dance with band behind them" style={{ width: '100%', height: '100%', minHeight: '300px', objectFit: 'cover', borderRadius: 'var(--radius-lg)' }} />
-      </div>
-    </Section>
   );
 }
 
@@ -339,7 +328,7 @@ function FinalCTA() {
 }
 
 function LandingPage() {
-  return (<><Hero /><Problem /><HowItWorks /><WhatsWaiting /><BandShowcase /><Testimonials /><FAQ /><FinalCTA /></>);
+  return (<><Hero /><Problem /><HowItWorks /><WhatsWaiting /><Testimonials /><FAQ /><FinalCTA /></>);
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<LandingPage />);
