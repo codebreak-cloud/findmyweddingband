@@ -566,16 +566,21 @@ function MatchBadge({ percent, size = 220 }) {
   );
 }
 
-function ResultBlock({ result, path, isFirst }) {
+function ResultBlock({ result, path, isFirst, hideExclusivity }) {
   const band = BANDS[result.winner];
   const named = result.namedPicks;
   const article = /^[aeiou]/i.test(band.genre) ? 'an' : 'a';
+  const isDaytime = path === 'daytime';
+  const accentColor = isDaytime ? '#D4A76A' : '#C75468';
+  const accentBg = isDaytime ? 'rgba(212, 167, 106, 0.12)' : 'rgba(199, 84, 104, 0.12)';
 
   return (
     <div style={{ marginBottom: 'var(--space-7)', marginTop: isFirst ? 'var(--space-4)' : 'var(--space-5)' }}>
-      {/* Eyebrow */}
-      <div style={{ fontSize: 'var(--fs-meta)', letterSpacing: 'var(--ls-meta)', textTransform: 'uppercase', fontWeight: 'var(--fw-medium)', color: 'var(--color-coral)', marginBottom: 'var(--space-3)', textAlign: 'center' }}>
-        {path === 'daytime' ? 'Your daytime match' : 'Your evening match'}
+      {/* Section divider and header */}
+      <div style={{ borderTop: `2px solid ${accentColor}`, paddingTop: 'var(--space-6)', marginBottom: 'var(--space-6)' }}>
+        <div style={{ fontSize: 'clamp(1.1rem, 1rem + 0.4vw, 1.5rem)', letterSpacing: 'var(--ls-meta)', textTransform: 'uppercase', fontWeight: 'var(--fw-bold)', color: accentColor, textAlign: 'center' }}>
+          {isDaytime ? '☀️ YOUR DAYTIME' : '🌙 YOUR EVENING PARTY'}
+        </div>
       </div>
 
       {/* Match Badge - centered and large */}
@@ -607,7 +612,7 @@ function ResultBlock({ result, path, isFirst }) {
         lineHeight: 'var(--lh-snug)',
         margin: '0 0 var(--space-4) 0',
       }}>
-        Based on that, Boujee's exclusive band is...
+        Based on that, Boujee's exclusive band for your {isDaytime ? 'daytime' : 'evening party'} is...
       </p>
 
       {/* STAGE 3: Band reveal card - static display, not a button */}
@@ -650,7 +655,7 @@ function ResultBlock({ result, path, isFirst }) {
           fontFamily: 'var(--font-sans)',
           fontWeight: 'var(--fw-semibold)',
           fontSize: 'var(--fs-body)',
-          color: 'rgba(239,176,161,1)',
+          color: accentColor,
           textAlign: 'center',
           lineHeight: 'var(--lh-body)',
           margin: '0 0 var(--space-4) 0',
@@ -732,7 +737,7 @@ function ResultBlock({ result, path, isFirst }) {
         lineHeight: 'var(--lh-snug)',
         textAlign: 'center',
       }}>
-        Why {band.name}?
+        Why {band.name} for your {isDaytime ? 'daytime' : 'evening'}?
       </h3>
 
       <p style={{
@@ -750,15 +755,14 @@ function ResultBlock({ result, path, isFirst }) {
         }
       </p>
 
-      {/* STAGE 6: Boujee exclusive sell - split exclusivity and service messaging */}
-
-      {/* Exclusivity + service beat - combined card */}
+      {/* STAGE 6: Boujee exclusive sell - only show for single-band routes (hideExclusivity = false) */}
+      {!hideExclusivity && (
       <div style={{
-        backgroundColor: 'rgba(239, 176, 161, 0.12)',
+        backgroundColor: accentBg,
         borderRadius: 'var(--radius-lg)',
         padding: 'var(--space-6)',
         marginBottom: 'var(--space-7)',
-        border: '2px solid var(--color-coral)',
+        border: `2px solid ${accentColor}`,
         transition: 'transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard)',
         cursor: 'pointer',
         boxShadow: '0 4px 12px rgba(38,0,77,0.08)',
@@ -775,7 +779,7 @@ function ResultBlock({ result, path, isFirst }) {
           fontFamily: 'var(--font-sans)',
           fontWeight: 'var(--fw-bold)',
           fontSize: 'clamp(1.1rem, 1rem + 0.4vw, 1.5rem)',
-          color: 'var(--color-coral)',
+          color: accentColor,
           marginBottom: 'var(--space-5)',
           marginTop: 0,
           lineHeight: 'var(--lh-snug)',
@@ -795,6 +799,7 @@ function ResultBlock({ result, path, isFirst }) {
           Boujee was built by Tim and Lizzie, professional musicians who got tired of how the industry worked and created their own acts from scratch: the best of both worlds between booking a band direct and going through a faceless agency. We handle the whole day, not just the set - liaising with your venue on timings and logistics, backed by award-winning planning support.
         </p>
       </div>
+      )}
     </div>
   );
 }
@@ -823,7 +828,54 @@ function Results({ results, backdrop }) {
 
         {/* Result blocks */}
         <div style={{ maxWidth: 'var(--container-narrow)', margin: '0 auto', padding: '0 var(--space-5) var(--space-9)' }}>
-          {results.map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} />)}
+          {results.map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} hideExclusivity={results.length > 1} />)}
+
+          {/* Shared exclusivity box for all-day routes */}
+          {results.length > 1 && (
+          <div style={{
+            backgroundColor: 'rgba(212, 167, 106, 0.12)',
+            borderRadius: 'var(--radius-lg)',
+            padding: 'var(--space-6)',
+            marginBottom: 'var(--space-7)',
+            marginTop: 'var(--space-7)',
+            border: '2px solid #D4A76A',
+            transition: 'transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard)',
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(38,0,77,0.08)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.boxShadow = '0 12px 24px rgba(38,0,77,0.15), 0 0 24px rgba(239,176,161,0.2)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(38,0,77,0.08)';
+          }}>
+            <h4 style={{
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 'var(--fw-bold)',
+              fontSize: 'clamp(1.1rem, 1rem + 0.4vw, 1.5rem)',
+              color: '#D4A76A',
+              marginBottom: 'var(--space-5)',
+              marginTop: 0,
+              lineHeight: 'var(--lh-snug)',
+              textAlign: 'center',
+            }}>
+              These bands are exclusive to Boujee — you won't find them anywhere else.
+            </h4>
+            <p style={{
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 'var(--fw-regular)',
+              fontSize: 'var(--fs-body)',
+              color: 'rgba(255,253,251,0.88)',
+              lineHeight: 'var(--lh-body)',
+              margin: 0,
+              textAlign: 'center',
+            }}>
+              Boujee was built by Tim and Lizzie, professional musicians who got tired of how the industry worked and created their own acts from scratch: the best of both worlds between booking a band direct and going through a faceless agency. We handle your whole day, not just the sets — coordinating both bands, liaising with your venue on timings and logistics, backed by award-winning planning support.
+            </p>
+          </div>
+          )}
 
           {/* STAGE 7: CTA section - "What happens next?" */}
           <div style={{ marginTop: 'var(--space-6)' }}>
