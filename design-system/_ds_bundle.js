@@ -343,7 +343,7 @@ function Input({
       fontSize: 'var(--fs-meta)',
       letterSpacing: 'var(--ls-meta)',
       textTransform: 'uppercase',
-      color: 'var(--text-muted)',
+      color: 'white',
       marginBottom: 8
     }
   }, label), /*#__PURE__*/React.createElement("input", {
