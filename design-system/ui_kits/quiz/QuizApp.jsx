@@ -151,7 +151,7 @@ function DjExit({ onBackIn }) {
 }
 
 function Q2({ onAnswer }) {
-  const opts = [['daytime', 'Daytime - ceremony, drinks, wedding breakfast'], ['evening', 'Evening party']];
+  const opts = [['daytime', 'Daytime - ceremony, drinks, wedding breakfast'], ['all-day', 'All day - from ceremony through to the late night'], ['evening', 'Evening party']];
   const [sel, choose] = useAutoAdvance(onAnswer);
   return (
     <Question n={2} title="Which part of your day are you dreaming of filling with live music?">
@@ -164,8 +164,8 @@ function Q2({ onAnswer }) {
 
 function Atmosphere({ n, path, onAnswer }) {
   const opts = path === 'daytime'
-    ? [['RS', 'Start relaxed and let the energy build through the day'], ['RS', 'Full, fun energy from the off'], ['MH', 'Relaxed and elegant, a beautiful backdrop while everyone eats'], ['MH', 'Sophisticated and classy, effortlessly chic']]
-    : [['UTSD', 'A party that builds gradually until everyone\u2019s dancing by the end'], ['UTSD', 'Full-on party energy from the very first song'], ['VS', 'A dancefloor that feels more like a gig, everyone singing every word'], ['VS', 'High energy but edgier, indie anthems that move the room']];
+    ? [['RS', 'Start relaxed and let the energy build through the day'], ['RS', 'Fun and lively from the start'], ['MH', 'Relaxed and elegant'], ['MH', 'Sophisticated and classy']]
+    : [['UTSD', 'A party that builds gradually until everyone\u2019s dancing by the end'], ['UTSD', 'Full-on party energy from the very first song'], ['VS', 'A dancefloor that feels more like a gig, everyone singing every word'], ['VS', 'High energy with a bit more edge and attitude']];
   const [sel, choose] = useAutoAdvance((i) => onAnswer(opts[i][0]));
   return (
     <Question n={n} title="What atmosphere are you picturing?">
@@ -200,10 +200,14 @@ function SongPick({ n, path, onAnswer }) {
 function TasteQuestion({ onAnswer }) {
   const opts = ['Pretty much identical, we love all the same stuff', 'Pretty close, just a few different favourites', 'Total opposites, but somehow it works', 'Still figuring out where we overlap!'];
   const [sel, choose] = useAutoAdvance(onAnswer);
+  const [partnerName, setPartnerName] = React.useState('');
   return (
     <Question n={7} title="You and your partner's music taste is...">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
         {opts.map((l, i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => choose(i)} />)}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <Input label="Partner's name (optional)" placeholder="e.g. Alex" value={partnerName} onChange={e => setPartnerName(e.target.value)} />
       </div>
     </Question>
   );
@@ -213,7 +217,7 @@ function Q8({ onAnswer }) {
   const opts = [['none', 'Date not booked yet'], ['soon', 'Within the next year'], ['mid', '1 to 2 years away'], ['early', 'Still very early days']];
   const [sel, choose] = useAutoAdvance(onAnswer);
   return (
-    <Question n={8} title="How far off is the big day?">
+    <Question n={8} title="How far off is the wedding?">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {opts.map(([v, l]) => <OptionCard key={v} label={l} selected={sel === v} onClick={() => choose(v)} />)}
       </div>
@@ -769,7 +773,7 @@ function ResultBlock({ result, path, isFirst }) {
           lineHeight: 'var(--lh-snug)',
           textAlign: 'center',
         }}>
-          These bands are exclusive to Boujee, you won't find them anywhere else.
+          These bands are exclusive to Boujee - you won't find them anywhere else.
         </h4>
         <p style={{
           fontFamily: 'var(--font-sans)',
@@ -780,7 +784,7 @@ function ResultBlock({ result, path, isFirst }) {
           margin: 0,
           textAlign: 'center',
         }}>
-          No dead air between sets. A playlist built to keep the momentum of your day going. We liaise directly with your venue on logistics and timings, the whole day handled, not just a band that turns up.
+          Boujee was built by Tim and Lizzie, professional musicians who got tired of how the industry worked and created their own acts from scratch: the best of both worlds between booking a band direct and going through a faceless agency. We handle the whole day, not just the set - liaising with your venue on timings and logistics, backed by award-winning planning support.
         </p>
       </div>
     </div>
@@ -826,6 +830,17 @@ function Results({ results, backdrop }) {
             }}>
               What happens next?
             </h2>
+
+            {/* Tim & Lizzie photo */}
+            <div style={{
+              width: '100%',
+              maxWidth: '300px',
+              margin: '0 auto var(--space-6)',
+              borderRadius: 'var(--radius-lg)',
+              overflow: 'hidden',
+            }}>
+              <img src="../../assets/images/Tim-Lizzie-relaxed.jpg" alt="Tim and Lizzie" style={{ width: '100%', height: 'auto', display: 'block' }} />
+            </div>
 
             {/* CTA supporting copy */}
             <p style={{

@@ -86,7 +86,7 @@ function Hero() {
       </div>
       <div className="bq-hero-text">
         <h1 className="bq-hero-headline">The Wedding Band Matchmaker</h1>
-        <p className="bq-hero-tagline">The quiz that helps you discover the perfect style of band to suit your wedding vibe, and make it an unforgettable night.</p>
+        <p className="bq-hero-tagline">The quiz that helps you discover the perfect style of band to suit your wedding, your vibe, and your guests.</p>
         <div className="bq-hero-cta"><Button variant="onInk" size="lg" onClick={() => { window.location.href = '../quiz/index.html'; }}>Find My Match</Button></div>
         <p className="bq-hero-testi"><span className="bq-hero-testi-mark" aria-hidden="true">&ldquo;</span><span className="bq-hero-testi-text">"It felt like it was made for us." - Sam &amp; Priya, Elmore Court, June 2025</span></p>
       </div>
@@ -111,7 +111,7 @@ function Problem() {
         <div>
           <h2 style={{ fontSize: 'var(--fs-h1)', marginBottom: 'var(--space-6)' }}>Every wedding band says the same thing.</h2>
           <p style={{ fontSize: 'var(--fs-body-lg)', fontWeight: 'var(--fw-regular)', lineHeight: 'var(--lh-body)', color: 'var(--text-body)', marginBottom: 'var(--space-5)' }}>
-            Unforgettable, unique, showstopping. After the fifth Instagram reel, they all blur into one. You've probably already spent hours scrolling through band after band, video after video, trying to picture how each one would actually feel on the day. It's meant to be exciting, but somewhere around the twentieth open tab it starts to feel like a task rather than a treat. And because it's your wedding, a day you don't get to run twice, every choice starts to carry weight.
+            Unforgettable, unique, showstopping. After the fifth showreel, they all blur into one. You've probably already spent hours scrolling through band after band, video after video, trying to picture how each one would actually feel on the day. It's meant to be exciting, but somewhere around the twentieth open tab it starts to all feel too overwhelming. This is the day you and your guests will remember year after year, and the band is the part they'll talk about most. You only get one chance to get it right.
           </p>
           <p style={{ fontSize: 'var(--fs-body-lg)', fontWeight: 'var(--fw-bold)', lineHeight: 'var(--lh-body)', color: 'var(--color-ink)' }}>
             The real question isn't which band looks good on paper. It's which one suits the day you're picturing, the songs you love, and the way you want your guests to feel on the dancefloor.
@@ -127,9 +127,9 @@ function Problem() {
 
 function HowItWorks() {
   const steps = [
-    ['1', 'Tell us the vibe', 'A few quick questions about the atmosphere you want on your wedding day and the songs that get you excited. No music theory required, just what you\'re picturing.'],
-    ['2', 'Get your match', 'We calculate a genuine match score and match you with the band whose style fits what you told us, ceremony and drinks through to the last dance. You\'ll walk away knowing exactly what type of live band to look for instead, so this is worth your time either way.'],
-    ['3', 'Book a quick call', 'If you want to see the band in action, you have the opportunity to book a call with us at the end. No pressure. We\'ll check availability and take it from there.'],
+    ['1', 'Tell us the vibe', 'A few quick questions about the atmosphere you want on your wedding day and the songs that get you excited.'],
+    ['2', 'Get your match', 'We calculate your match score and show you the style of band that fits what you told us, from ceremony and drinks through to the last dance.'],
+    ['3', 'Book a quick call', 'If you\'d like to see which Boujee Music band fits the style you\'ve matched with, you can book a quick call with us at the end. No pressure. We\'ll check availability and take it from there.'],
   ];
   const { ref, isVisible } = useScrollReveal();
   return (
@@ -170,10 +170,10 @@ function WhatsWaiting() {
           <div>
             <h2 style={{ color: 'var(--color-paper)', fontSize: 'var(--fs-h1)', marginBottom: 'var(--space-5)' }}>What's waiting for you</h2>
             <p style={{ color: 'var(--color-paper)', opacity: 0.9, fontWeight: 'var(--fw-regular)', lineHeight: 'var(--lh-body)', marginBottom: 'var(--space-4)' }}>
-              Boujee's bands aren't available anywhere else. Every one has been built from scratch, from the setlists to the arrangements, and is exclusive to Boujee.
+              Boujee Music's bands aren't available anywhere else. Each one has been built from scratch, from the set lists to the arrangements and the choreography to the outfits, and is exclusive to Boujee.
             </p>
             <p style={{ color: 'var(--color-coral)', fontWeight: 'var(--fw-semibold)', lineHeight: 'var(--lh-body)' }}>
-              Your match isn't just a band name. It's a proper look at the style that suits you: the acoustic roaming set that works table to table during drinks, the swing and jazz that make dinner feel effortless, the show band that keeps the dancefloor full until the last song. You'll see why it fits, hear it, and know exactly what your evening could feel like.
+              Your match isn't just a band name. It's the style that suits your day and your guests, whether that's a roaming acoustic set breaking the ice during drinks, stylish jazz musicians to carry the meal, or the show band that brings the party and keeps the dance floor full to the last song. You'll see it, hear it, and know what your day could feel like.
             </p>
           </div>
           <DuotoneBand src="../../assets/images/landing-wedding-1.webp" height={340} tone="ice" />
