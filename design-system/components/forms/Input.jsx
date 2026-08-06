@@ -3,7 +3,7 @@ import React from 'react';
 export function Input({ label, type = 'text', placeholder, value, onChange, error }) {
   return (
     <label style={{ display: 'block', fontFamily: 'var(--font-sans)' }}>
-      {label && <span style={{ display: 'block', fontSize: 'var(--fs-meta)', letterSpacing: 'var(--ls-meta)', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>{label}</span>}
+      {label && <span style={{ display: 'block', fontSize: 'var(--fs-meta)', letterSpacing: 'var(--ls-meta)', textTransform: 'uppercase', color: 'white', marginBottom: 8 }}>{label}</span>}
       <input
         type={type}
         placeholder={placeholder}
