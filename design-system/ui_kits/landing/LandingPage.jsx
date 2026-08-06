@@ -183,6 +183,17 @@ function WhatsWaiting() {
   );
 }
 
+function BandShowcase() {
+  return (
+    <Section bg="var(--color-ice)">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-7)', alignItems: 'stretch' }}>
+        <img src="../../assets/images/band-vocalist-crowd.jpg" alt="Band vocalist on dance floor with crowd" style={{ width: '100%', height: '100%', minHeight: '300px', objectFit: 'cover', borderRadius: 'var(--radius-lg)' }} />
+        <img src="../../assets/images/band-first-dance.jpg" alt="Couple's first dance with band behind them" style={{ width: '100%', height: '100%', minHeight: '300px', objectFit: 'cover', borderRadius: 'var(--radius-lg)' }} />
+      </div>
+    </Section>
+  );
+}
+
 function Testimonials() {
   const quotes = [
     ['"From the first song to the last, the dance floor was full."', 'Amber & Dan', '../../assets/images/headshot-amber-dan.jpg'],
@@ -328,7 +339,7 @@ function FinalCTA() {
 }
 
 function LandingPage() {
-  return (<><Hero /><Problem /><HowItWorks /><WhatsWaiting /><Testimonials /><FAQ /><FinalCTA /></>);
+  return (<><Hero /><Problem /><HowItWorks /><WhatsWaiting /><BandShowcase /><Testimonials /><FAQ /><FinalCTA /></>);
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<LandingPage />);
