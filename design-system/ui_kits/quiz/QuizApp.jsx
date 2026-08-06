@@ -83,9 +83,11 @@ function Shell({ children, onBack, litCount, blaze, backdrop, hideChrome }) {
       {!hideChrome && (
         <div style={{ position: 'relative', zIndex: 1 }}>
           <FestoonLights lit={litCount} blaze={blaze} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: 640, margin: '0 auto', padding: '4px 24px 0', width: '100%', boxSizing: 'border-box' }}>
-            {onBack ? <Button variant="ghost" size="sm" onClick={onBack} style={{ color: 'var(--color-coral)' }}>Back</Button> : <span />}
-            <Button variant="ghost" size="sm" onClick={() => { window.location.href = '../landing/index.html'; }} style={{ color: 'var(--color-coral)' }}>Exit</Button>
+          <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 24px', width: '100%', boxSizing: 'border-box' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '4px' }}>
+              {onBack ? <Button variant="ghost" size="sm" onClick={onBack} style={{ color: 'var(--color-coral)' }}>Back</Button> : <span />}
+              <Button variant="ghost" size="sm" onClick={() => { window.location.href = '../landing/index.html'; }} style={{ color: 'var(--color-coral)' }}>Exit</Button>
+            </div>
           </div>
         </div>
       )}
@@ -180,8 +182,9 @@ function SongPick({ n, path, onAnswer }) {
   const songs = path === 'daytime' ? DAYTIME_SONGS : EVENING_SONGS;
   const [picked, setPicked] = React.useState(new Set());
   const toggle = (t) => setPicked(s => { const n2 = new Set(s); n2.has(t) ? n2.delete(t) : n2.add(t); return n2; });
+  const title = path === 'daytime' ? 'What songs set the mood for your daytime?' : 'Which of these songs would you love to hear?';
   return (
-    <Question n={n} title="Which of these songs would you love to hear?">
+    <Question n={n} title={title}>
       <p style={{ color: 'rgba(255,253,251,0.7)', fontSize: 'var(--fs-small)', marginTop: -16, marginBottom: 24 }}>Select your favorite songs to create your dream set list</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
         {songs.map(s => <SongRow key={s.title} title={s.title} artist={s.artist} selected={picked.has(s.title)} onClick={() => toggle(s.title)} />)}
@@ -199,12 +202,16 @@ function SongPick({ n, path, onAnswer }) {
 
 function TasteQuestion({ onAnswer }) {
   const opts = ['Pretty much identical, we love all the same stuff', 'Pretty close, just a few different favourites', 'Total opposites, but somehow it works', 'Still figuring out where we overlap!'];
-  const [sel, choose] = useAutoAdvance(onAnswer);
+  const [sel, setSel] = React.useState(null);
   const [partnerName, setPartnerName] = React.useState('');
+  const handleAnswer = (i) => {
+    setSel(i);
+    setTimeout(() => onAnswer({ tasteSelection: i, partnerName }), 380);
+  };
   return (
     <Question n={7} title="You and your partner's music taste is...">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
-        {opts.map((l, i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => choose(i)} />)}
+        {opts.map((l, i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => handleAnswer(i)} />)}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <Input label="Partner's name (optional)" placeholder="e.g. Alex" value={partnerName} onChange={e => setPartnerName(e.target.value)} />
@@ -254,7 +261,7 @@ function Q9Q10({ onAnswer }) {
   );
 }
 
-function LeadCapture({ onSubmit, results, path, venue, weddingDate }) {
+function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName }) {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
@@ -284,6 +291,7 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate }) {
         name,
         email,
         phone,
+        partnerName,
         venue,
         weddingDate,
         path,
@@ -913,6 +921,7 @@ function QuizApp({ backdrop }) {
   const [atmoBand, setAtmoBand] = React.useState(null);
   const [venue, setVenue] = React.useState('');
   const [weddingDate, setWeddingDate] = React.useState('');
+  const [partnerName, setPartnerName] = React.useState('');
 
   function advance(nextStep, lit) {
     setStep(nextStep);
@@ -936,10 +945,10 @@ function QuizApp({ backdrop }) {
       {step === 'q4' && <Shell litCount={3} backdrop={backdrop} onBack={() => advance('q3', 2)}><SongPick n={4} path="daytime" onAnswer={(picks) => afterDaytime(scorePath(picks, DAYTIME_SONGS, atmoBand, path === 'all-day'))} /></Shell>}
       {step === 'q5' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q4', 3)}><Atmosphere n={5} path="evening" onAnswer={(b) => { setAtmoBand(b); advance('q6', litCount + 1); }} /></Shell>}
       {step === 'q6' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q5', litCount - 1)}><SongPick n={6} path="evening" onAnswer={(picks) => afterEvening(scorePath(picks, EVENING_SONGS, atmoBand))} /></Shell>}
-      {step === 'q7' && <Shell litCount={6} backdrop={backdrop} onBack={() => advance('q6', litCount)}><TasteQuestion onAnswer={() => advance('q8', 7)} /></Shell>}
+      {step === 'q7' && <Shell litCount={6} backdrop={backdrop} onBack={() => advance('q6', litCount)}><TasteQuestion onAnswer={(data) => { setPartnerName(data.partnerName); advance('q8', 7); }} /></Shell>}
       {step === 'q8' && <Shell litCount={7} backdrop={backdrop} onBack={() => advance('q7', 6)}><Q8 onAnswer={(v) => advance(v === 'none' ? 'q11' : 'q9', 8)} /></Shell>}
       {step === 'q9' && <Shell litCount={8} backdrop={backdrop} onBack={() => advance('q8', 7)}><Q9Q10 onAnswer={(data) => { setVenue(data.venue); setWeddingDate(data.date); advance('q11', 10); }} /></Shell>}
-      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} results={results} path={path} venue={venue} weddingDate={weddingDate} /></Shell>}
+      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} results={results} path={path} venue={venue} weddingDate={weddingDate} partnerName={partnerName} /></Shell>}
       {step === 'loading' && <Shell hideChrome backdrop={backdrop}><Loading onDone={() => setStep('results')} /></Shell>}
       {step === 'results' && <Results results={results} backdrop={backdrop} />}
     </>
