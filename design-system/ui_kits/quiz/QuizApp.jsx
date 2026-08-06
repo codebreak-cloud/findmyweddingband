@@ -577,7 +577,7 @@ function ResultBlock({ result, path, isFirst, hideExclusivity }) {
   return (
     <div style={{ marginBottom: 'var(--space-7)', marginTop: isFirst ? 'var(--space-4)' : 'var(--space-5)' }}>
       {/* Section divider and header */}
-      <div style={{ borderTop: `2px solid ${accentColor}`, paddingTop: 'var(--space-6)', marginBottom: 'var(--space-6)' }}>
+      <div style={{ borderTop: hideExclusivity ? `2px solid ${accentColor}` : 'none', paddingTop: 'var(--space-6)', marginBottom: 'var(--space-6)' }}>
         <div style={{ fontSize: 'clamp(1.1rem, 1rem + 0.4vw, 1.5rem)', letterSpacing: 'var(--ls-meta)', textTransform: 'uppercase', fontWeight: 'var(--fw-bold)', color: accentColor, textAlign: 'center' }}>
           {isDaytime ? 'YOUR DAYTIME' : 'YOUR EVENING PARTY'}
         </div>
