@@ -204,17 +204,24 @@ function TasteQuestion({ onAnswer }) {
   const opts = ['Pretty much identical, we love all the same stuff', 'Pretty close, just a few different favourites', 'Total opposites, but somehow it works', 'Still figuring out where we overlap!'];
   const [sel, setSel] = React.useState(null);
   const [partnerName, setPartnerName] = React.useState('');
+
+  React.useEffect(() => {
+    if (sel !== null && partnerName.trim()) {
+      setTimeout(() => onAnswer({ tasteSelection: sel, partnerName: partnerName.trim() }), 380);
+    }
+  }, [sel, partnerName, onAnswer]);
+
   const handleAnswer = (i) => {
     setSel(i);
-    setTimeout(() => onAnswer({ tasteSelection: i, partnerName }), 380);
   };
+
   return (
     <Question n={7} title="You and your partner's music taste is...">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
         {opts.map((l, i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => handleAnswer(i)} />)}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <Input label="Partner's name (optional)" placeholder="e.g. Alex" value={partnerName} onChange={e => setPartnerName(e.target.value)} />
+        <Input label="Partner's name" placeholder="e.g. Alex" value={partnerName} onChange={e => setPartnerName(e.target.value)} />
       </div>
     </Question>
   );
@@ -882,10 +889,24 @@ function Results({ results, backdrop }) {
             width: '100%',
             maxWidth: '300px',
             margin: '0 auto var(--space-7)',
-            borderRadius: 'var(--radius-lg)',
-            overflow: 'hidden',
+            textAlign: 'center',
           }}>
-            <img src="../../assets/images/Tim-Lizzie-relaxed.jpg" alt="Tim and Lizzie" style={{ width: '100%', height: 'auto', display: 'block' }} />
+            <div style={{
+              borderRadius: 'var(--radius-lg)',
+              overflow: 'hidden',
+              marginBottom: 'var(--space-3)',
+            }}>
+              <img src="../../assets/images/Tim-Lizzie-relaxed.jpg" alt="Tim and Lizzie" style={{ width: '100%', height: 'auto', display: 'block' }} />
+            </div>
+            <p style={{
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 'var(--fw-semibold)',
+              fontSize: 'var(--fs-body)',
+              color: 'rgba(255,253,251,0.88)',
+              margin: 0,
+            }}>
+              Tim & Lizzie
+            </p>
           </div>
 
           {/* STAGE 7: CTA section - "What happens next?" */}
