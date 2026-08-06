@@ -182,7 +182,7 @@ function SongPick({ n, path, onAnswer }) {
   const songs = path === 'daytime' ? DAYTIME_SONGS : EVENING_SONGS;
   const [picked, setPicked] = React.useState(new Set());
   const toggle = (t) => setPicked(s => { const n2 = new Set(s); n2.has(t) ? n2.delete(t) : n2.add(t); return n2; });
-  const title = path === 'daytime' ? 'What songs set the mood for your daytime?' : 'Which of these songs would you love to hear?';
+  const title = path === 'daytime' ? 'What songs set the mood for your daytime?' : 'Which of these songs would you love to hear for your evening party?';
   return (
     <Question n={n} title={title}>
       <p style={{ color: 'rgba(255,253,251,0.7)', fontSize: 'var(--fs-small)', marginTop: -16, marginBottom: 24 }}>Select your favorite songs to create your dream set list</p>
