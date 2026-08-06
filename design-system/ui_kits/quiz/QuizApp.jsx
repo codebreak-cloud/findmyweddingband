@@ -877,6 +877,17 @@ function Results({ results, backdrop }) {
           </div>
           )}
 
+          {/* Tim & Lizzie photo - under exclusive box */}
+          <div style={{
+            width: '100%',
+            maxWidth: '300px',
+            margin: '0 auto var(--space-7)',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+          }}>
+            <img src="../../assets/images/Tim-Lizzie-relaxed.jpg" alt="Tim and Lizzie" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          </div>
+
           {/* STAGE 7: CTA section - "What happens next?" */}
           <div style={{ marginTop: 'var(--space-6)' }}>
             <h2 style={{
@@ -890,17 +901,6 @@ function Results({ results, backdrop }) {
             }}>
               What happens next?
             </h2>
-
-            {/* Tim & Lizzie photo */}
-            <div style={{
-              width: '100%',
-              maxWidth: '300px',
-              margin: '0 auto var(--space-6)',
-              borderRadius: 'var(--radius-lg)',
-              overflow: 'hidden',
-            }}>
-              <img src="../../assets/images/Tim-Lizzie-relaxed.jpg" alt="Tim and Lizzie" style={{ width: '100%', height: 'auto', display: 'block' }} />
-            </div>
 
             {/* CTA supporting copy */}
             <p style={{
