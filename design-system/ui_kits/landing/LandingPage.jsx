@@ -117,7 +117,7 @@ function Problem() {
             The real question isn't which band looks good on paper. It's which one suits the day you're picturing, the songs you love, and the way you want your guests to feel on the dancefloor.
           </p>
         </div>
-        <div className="problem-image" style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', height: '100%', minHeight: '400px' }}>
+        <div className="problem-image" style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', height: '100%', minHeight: '400px', maxWidth: '400px', margin: '0 auto' }}>
           <img src="../../assets/images/band-vocalist-crowd.jpg" alt="Vocalists performing on dance floor with crowd" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       </div>
