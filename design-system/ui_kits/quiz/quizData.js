@@ -4,7 +4,7 @@ var BANDS = {
   VS: { name: 'The Velvet Saints', genre: 'indie-rock band', style: 'Smaller line-up, high-energy indie/rock edge', video: 'https://youtu.be/2psnhMdF_X0', photo: '../../assets/images/band-velvet-saints.webp' },
   RS: { name: 'The Rock & Strollers', genre: 'roaming acoustic band', style: 'Roaming acoustic, chilled-to-building, guest-to-guest singalongs', video: 'https://youtu.be/Rrp-nPo6ULA', photo: '../../assets/images/band-rock-strollers.webp' },
   MH: { name: 'Miles High', genre: 'jazz & swing band', style: 'Jazz/swing, sophisticated ceremony, drinks & dinner music', video: 'https://youtu.be/BjbAbgVjQfQ', photo: '../../assets/images/band-miles-high.webp' },
-  SOLO: { name: 'Soloist / Duo', genre: 'soloist or duo', style: 'Pared-back ceremony & drinks music — acoustic guitar, piano, sax, or a vocal duo', video: null, photo: null },
+  SOLO: { name: 'Soloist / Duo', genre: 'soloist or duo', style: 'Pared-back ceremony & drinks music, acoustic guitar, piano, sax, or a vocal duo', video: null, photo: null },
 };
 var EVENING_SONGS = [
   { title: 'Signed, Sealed, Delivered', artist: 'Stevie Wonder', tag: 'UTSD' },

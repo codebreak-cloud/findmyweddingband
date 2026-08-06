@@ -579,7 +579,7 @@ function ResultBlock({ result, path, isFirst, hideExclusivity }) {
       {/* Section divider and header */}
       <div style={{ borderTop: `2px solid ${accentColor}`, paddingTop: 'var(--space-6)', marginBottom: 'var(--space-6)' }}>
         <div style={{ fontSize: 'clamp(1.1rem, 1rem + 0.4vw, 1.5rem)', letterSpacing: 'var(--ls-meta)', textTransform: 'uppercase', fontWeight: 'var(--fw-bold)', color: accentColor, textAlign: 'center' }}>
-          {isDaytime ? '☀️ YOUR DAYTIME' : '🌙 YOUR EVENING PARTY'}
+          {isDaytime ? 'YOUR DAYTIME' : 'YOUR EVENING PARTY'}
         </div>
       </div>
 
@@ -861,7 +861,7 @@ function Results({ results, backdrop }) {
               lineHeight: 'var(--lh-snug)',
               textAlign: 'center',
             }}>
-              These bands are exclusive to Boujee — you won't find them anywhere else.
+              These bands are exclusive to Boujee, you won't find them anywhere else.
             </h4>
             <p style={{
               fontFamily: 'var(--font-sans)',
@@ -872,7 +872,7 @@ function Results({ results, backdrop }) {
               margin: 0,
               textAlign: 'center',
             }}>
-              Boujee was built by Tim and Lizzie, professional musicians who got tired of how the industry worked and created their own acts from scratch: the best of both worlds between booking a band direct and going through a faceless agency. We handle your whole day, not just the sets — coordinating both bands, liaising with your venue on timings and logistics, backed by award-winning planning support.
+              Boujee was built by Tim and Lizzie, professional musicians who got tired of how the industry worked and created their own acts from scratch: the best of both worlds between booking a band direct and going through a faceless agency. We handle your whole day, not just the sets, coordinating both bands, liaising with your venue on timings and logistics, backed by award-winning planning support.
             </p>
           </div>
           )}
