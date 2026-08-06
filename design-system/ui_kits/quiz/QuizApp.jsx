@@ -828,7 +828,7 @@ function Results({ results, backdrop }) {
 
         {/* Result blocks */}
         <div style={{ maxWidth: 'var(--container-narrow)', margin: '0 auto', padding: '0 var(--space-5) var(--space-9)' }}>
-          {results.map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} hideExclusivity={results.length > 1} />)}
+          {[...results].sort((a, b) => a.path === 'daytime' ? -1 : 1).map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} hideExclusivity={results.length > 1} />)}
 
           {/* Shared exclusivity box for all-day routes */}
           {results.length > 1 && (
