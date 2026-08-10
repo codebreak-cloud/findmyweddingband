@@ -315,11 +315,31 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName 
         body: JSON.stringify(payload)
       });
 
+      // Build MailerLite payload with individual fields
+      const dayResult = results.find(r => r.path === 'daytime');
+      const evenResult = results.find(r => r.path === 'evening');
+
+      const mailerlitePayload = {
+        name,
+        email,
+        phone,
+        partnerName,
+        venue,
+        weddingDate,
+        tags,
+        'Part Of Day': path === 'all-day' ? 'All Day' : (path === 'daytime' ? 'Daytime' : 'Evening'),
+        'Daytime Act': dayResult ? BANDS[dayResult.result.winner].name : '',
+        'Daytime Match Percentage': dayResult ? dayResult.result.pct : '',
+        'Evening Act': evenResult ? BANDS[evenResult.result.winner].name : '',
+        'Evening Match Percentage': evenResult ? evenResult.result.pct : '',
+        submittedAt: new Date().toISOString()
+      };
+
       // Send to MailerLite Zapier webhook (no CORS issues with no-cors mode)
       fetch('https://hooks.zapier.com/hooks/catch/20476458/46innpm/', {
         method: 'POST',
         mode: 'no-cors',
-        body: JSON.stringify(payload)
+        body: JSON.stringify(mailerlitePayload)
       }).catch(err => console.error('Zapier webhook error:', err));
     } catch (err) {
       console.error('Webhook error:', err);
