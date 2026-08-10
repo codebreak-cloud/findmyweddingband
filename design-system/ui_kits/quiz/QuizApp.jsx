@@ -937,30 +937,17 @@ function Results({ results, backdrop }) {
               {ctaCopy(results)}
             </p>
 
-            {/* Acuity scheduler placeholder */}
+            {/* Acuity scheduler embed */}
             <div style={{
               background: 'var(--color-paper)',
-              border: '2px solid rgba(38,0,77,0.15)',
               borderRadius: 'var(--radius-lg)',
-              padding: 'var(--space-7)',
-              marginBottom: 'var(--space-6)',
-              color: 'rgba(46,42,50,0.62)',
-              fontSize: 'var(--fs-small)',
+              overflow: 'hidden',
               boxShadow: '0 4px 12px rgba(38,0,77,0.08)',
-              cursor: 'pointer',
-              transition: 'transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard)',
-              textAlign: 'center',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = '0 12px 24px rgba(38,0,77,0.12)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(38,0,77,0.08)';
+              marginBottom: 'var(--space-6)',
             }}>
-              Booking scheduler embed (Acuity)
+              <iframe src="https://boujee-music.as.me/wedding-band-discovery-call-qz" width="100%" height="800" frameBorder="0" allow="payment" style={{ display: 'block' }}></iframe>
             </div>
+            <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
 
             {/* Book your call CTA */}
             <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
