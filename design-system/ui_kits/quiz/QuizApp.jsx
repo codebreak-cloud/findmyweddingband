@@ -153,7 +153,7 @@ function DjExit({ onBackIn }) {
 }
 
 function Q2({ onAnswer }) {
-  const opts = [['daytime', 'Daytime - ceremony, drinks, wedding breakfast'], ['all-day', 'All day - from ceremony through to the late night'], ['evening', 'Evening party']];
+  const opts = [['evening', 'Evening party'], ['daytime', 'Daytime - ceremony, drinks, wedding breakfast'], ['all-day', 'All day - from ceremony through to the late night']];
   const [sel, choose] = useAutoAdvance(onAnswer);
   return (
     <Question n={2} title="Which part of your day are you dreaming of filling with live music?">
@@ -164,13 +164,14 @@ function Q2({ onAnswer }) {
   );
 }
 
-function Atmosphere({ n, path, onAnswer }) {
+function Atmosphere({ n, path, onAnswer, allDayRoute }) {
   const opts = path === 'daytime'
     ? [['RS', 'Start relaxed and let the energy build through the day'], ['RS', 'Fun and lively from the start'], ['MH', 'Relaxed and elegant'], ['MH', 'Sophisticated and classy']]
     : [['UTSD', 'A party that builds gradually until everyone\u2019s dancing by the end'], ['UTSD', 'Full-on party energy from the very first song'], ['VS', 'A dancefloor that feels more like a gig, everyone singing every word'], ['VS', 'High energy with a bit more edge and attitude']];
   const [sel, choose] = useAutoAdvance((i) => onAnswer(opts[i][0]));
+  const subtitle = allDayRoute ? (path === 'daytime' ? ' for the daytime' : ' for your evening party') : '';
   return (
-    <Question n={n} title="What atmosphere are you picturing?">
+    <Question n={n} title={`What atmosphere are you picturing?${subtitle}`}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {opts.map(([band, l], i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => choose(i)} />)}
       </div>
@@ -572,11 +573,18 @@ function MatchBadge({ percent, size = 220 }) {
   );
 }
 
-function ResultBlock({ result, path, isFirst, hideExclusivity }) {
+function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songPicks }) {
   const band = BANDS[result.winner];
-  const named = result.namedPicks;
   const article = /^[aeiou]/i.test(band.genre) ? 'an' : 'a';
   const isDaytime = path === 'daytime';
+
+  // Filter songs to only those that route to the winning band
+  const songList = isDaytime ? DAYTIME_SONGS : EVENING_SONGS;
+  const filteredPicks = songPicks ? Array.from(songPicks).filter(songTitle => {
+    const song = songList.find(s => s.title === songTitle);
+    return song && song.tag === result.winner;
+  }) : [];
+  const named = filteredPicks.slice(0, 3);
   const accentColor = isDaytime ? '#D4A76A' : '#C75468';
   const accentBg = isDaytime ? 'rgba(212, 167, 106, 0.12)' : 'rgba(199, 84, 104, 0.12)';
 
@@ -755,10 +763,11 @@ function ResultBlock({ result, path, isFirst, hideExclusivity }) {
         marginBottom: 'var(--space-7)',
         textAlign: 'center',
       }}>
-        {named.length
-          ? `You picked ${named.slice(0, 3).join(', ').replace(/, ([^,]+)$/, ' and $1')} as must-plays, and that's exactly the vibe you're picturing.`
-          : 'That energy is exactly the vibe you\'re picturing.'
-        }
+        {(() => {
+          const songPart = named.length ? `You picked ${named.join(', ').replace(/, ([^,]+)$/, ' and $1')} as must-plays` : 'That energy matches what you want';
+          const vibeEnding = isDaytime ? 'the refined, flowing vibe you\'re going for.' : 'the party energy you\'re envisioning.';
+          return atmosphere ? `${songPart}, and combined with your love of ${atmosphere === 'RS' ? 'roaming, relaxed vibes' : atmosphere === 'MH' ? 'sophisticated elegance' : atmosphere === 'UTSD' ? 'high-energy celebration' : 'edgy, live-gig energy'}, it creates ${vibeEnding}` : `${songPart}, and that matches ${isDaytime ? 'the refined, flowing vibe you\'re going for.' : 'the party energy you\'re envisioning.'}`;
+        })()}
       </p>
 
       {/* STAGE 6: Boujee exclusive sell - only show for single-band routes (hideExclusivity = false) */}
@@ -834,7 +843,7 @@ function Results({ results, backdrop }) {
 
         {/* Result blocks */}
         <div style={{ maxWidth: 'var(--container-narrow)', margin: '0 auto', padding: '0 var(--space-5) var(--space-9)' }}>
-          {[...results].sort((a, b) => a.path === 'daytime' ? -1 : 1).map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} hideExclusivity={results.length > 1} />)}
+          {[...results].sort((a, b) => a.path === 'daytime' ? -1 : 1).map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} hideExclusivity={results.length > 1} atmosphere={r.atmosphere} songPicks={r.songPicks} />)}
 
           {/* Shared exclusivity box for all-day routes */}
           {results.length > 1 && (
@@ -989,21 +998,21 @@ function QuizApp({ backdrop }) {
 
   function handleQ1(v) { if (v === 'dj') setStep('djExit'); else advance('q2', 1); }
   function handleQ2(v) { setPath(v); advance(v === 'evening' ? 'q5' : 'q3', 2); }
-  function afterDaytime(result) {
-    setResults(r => [...r, { path: 'daytime', result }]);
+  function afterDaytime(result, picks) {
+    setResults(r => [...r, { path: 'daytime', result, atmosphere: atmoBand, songPicks: picks }]);
     if (path === 'all-day') advance('q5', 4); else advance('q7', 6);
   }
-  function afterEvening(result) { setResults(r => [...r, { path: 'evening', result }]); advance('q7', 6); }
+  function afterEvening(result, picks) { setResults(r => [...r, { path: 'evening', result, atmosphere: atmoBand, songPicks: picks }]); advance('q7', 6); }
 
   return (
     <>
       {step === 'q1' && <Shell litCount={0} backdrop={backdrop}><Q1 onAnswer={handleQ1} /></Shell>}
       {step === 'djExit' && <Shell hideChrome backdrop={backdrop}><DjExit onBackIn={() => advance('q1', 0)} /></Shell>}
       {step === 'q2' && <Shell litCount={1} backdrop={backdrop} onBack={() => advance('q1', 0)}><Q2 onAnswer={handleQ2} /></Shell>}
-      {step === 'q3' && <Shell litCount={2} backdrop={backdrop} onBack={() => advance('q2', 1)}><Atmosphere n={3} path="daytime" onAnswer={(b) => { setAtmoBand(b); advance('q4', 3); }} /></Shell>}
-      {step === 'q4' && <Shell litCount={3} backdrop={backdrop} onBack={() => advance('q3', 2)}><SongPick n={4} path="daytime" onAnswer={(picks) => afterDaytime(scorePath(picks, DAYTIME_SONGS, atmoBand, path === 'all-day'))} /></Shell>}
-      {step === 'q5' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q4', 3)}><Atmosphere n={5} path="evening" onAnswer={(b) => { setAtmoBand(b); advance('q6', litCount + 1); }} /></Shell>}
-      {step === 'q6' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q5', litCount - 1)}><SongPick n={6} path="evening" onAnswer={(picks) => afterEvening(scorePath(picks, EVENING_SONGS, atmoBand))} /></Shell>}
+      {step === 'q3' && <Shell litCount={2} backdrop={backdrop} onBack={() => advance('q2', 1)}><Atmosphere n={3} path="daytime" allDayRoute={path === 'all-day'} onAnswer={(b) => { setAtmoBand(b); advance('q4', 3); }} /></Shell>}
+      {step === 'q4' && <Shell litCount={3} backdrop={backdrop} onBack={() => advance('q3', 2)}><SongPick n={4} path="daytime" onAnswer={(picks) => afterDaytime(scorePath(picks, DAYTIME_SONGS, atmoBand, path === 'all-day'), picks)} /></Shell>}
+      {step === 'q5' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q4', 3)}><Atmosphere n={5} path="evening" allDayRoute={path === 'all-day'} onAnswer={(b) => { setAtmoBand(b); advance('q6', litCount + 1); }} /></Shell>}
+      {step === 'q6' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q5', litCount - 1)}><SongPick n={6} path="evening" onAnswer={(picks) => afterEvening(scorePath(picks, EVENING_SONGS, atmoBand), picks)} /></Shell>}
       {step === 'q7' && <Shell litCount={6} backdrop={backdrop} onBack={() => advance('q6', litCount)}><TasteQuestion onAnswer={(data) => { setPartnerName(data.partnerName); advance('q8', 7); }} /></Shell>}
       {step === 'q8' && <Shell litCount={7} backdrop={backdrop} onBack={() => advance('q7', 6)}><Q8 onAnswer={(v) => advance(v === 'none' ? 'q11' : 'q9', 8)} /></Shell>}
       {step === 'q9' && <Shell litCount={8} backdrop={backdrop} onBack={() => advance('q8', 7)}><Q9Q10 onAnswer={(data) => { setVenue(data.venue); setWeddingDate(data.date); advance('q11', 10); }} /></Shell>}
