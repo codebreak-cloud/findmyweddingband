@@ -764,9 +764,29 @@ function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songP
         textAlign: 'center',
       }}>
         {(() => {
-          const songPart = named.length ? `You picked ${named.join(', ').replace(/, ([^,]+)$/, ' and $1')} as must-plays` : 'That energy matches what you want';
-          const vibeEnding = isDaytime ? 'the refined, flowing vibe you\'re going for.' : 'the party energy you\'re envisioning.';
-          return atmosphere ? `${songPart}, and combined with your love of ${atmosphere === 'RS' ? 'roaming, relaxed vibes' : atmosphere === 'MH' ? 'sophisticated elegance' : atmosphere === 'UTSD' ? 'high-energy celebration' : 'edgy, live-gig energy'}, it creates ${vibeEnding}` : `${songPart}, and that matches ${isDaytime ? 'the refined, flowing vibe you\'re going for.' : 'the party energy you\'re envisioning.'}`;
+          const songPart = named.length ? `You picked ${named.join(', ').replace(/, ([^,]+)$/, ' and $1')} as must-plays` : 'That matches what you want';
+          let atmospherePhrase = '';
+          let vibeEnding = '';
+
+          if (atmosphere) {
+            if (atmosphere === 'RS') {
+              atmospherePhrase = 'your love of roaming, relaxed vibes';
+              vibeEnding = isDaytime ? 'the flowing ease you\'re going for.' : 'the laid-back celebration you\'re imagining.';
+            } else if (atmosphere === 'MH') {
+              atmospherePhrase = 'your love of sophisticated elegance';
+              vibeEnding = isDaytime ? 'the refined atmosphere you\'re going for.' : 'the sophisticated celebration you\'re imagining.';
+            } else if (atmosphere === 'UTSD') {
+              atmospherePhrase = 'your love of high-energy celebration';
+              vibeEnding = isDaytime ? 'the building excitement you\'re going for.' : 'the full-on party you\'re envisioning.';
+            } else if (atmosphere === 'VS') {
+              atmospherePhrase = 'your love of edgy, live-gig vibes';
+              vibeEnding = isDaytime ? 'the bold excitement you\'re going for.' : 'the electric atmosphere you\'re envisioning.';
+            }
+            return `${songPart}, and combined with ${atmospherePhrase}, it creates ${vibeEnding}`;
+          } else {
+            vibeEnding = isDaytime ? 'the refined, flowing vibe you\'re going for.' : 'the celebration you\'re envisioning.';
+            return `${songPart}, and that matches ${vibeEnding}`;
+          }
         })()}
       </p>
 
