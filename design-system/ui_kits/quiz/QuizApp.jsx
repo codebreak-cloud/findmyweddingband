@@ -875,6 +875,10 @@ function ctaCopy(results) {
 }
 
 function Results({ results, backdrop }) {
+  const calendarRef = React.useRef(null);
+  const scrollToCalendar = () => {
+    calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   return (
     <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--color-paper)' }}>
       <QuizBackdrop {...backdrop} />
@@ -991,7 +995,7 @@ function Results({ results, backdrop }) {
             </p>
 
             {/* Acuity scheduler embed */}
-            <div style={{
+            <div ref={calendarRef} style={{
               background: 'var(--color-paper)',
               borderRadius: 'var(--radius-lg)',
               overflow: 'hidden',
@@ -1004,7 +1008,7 @@ function Results({ results, backdrop }) {
 
             {/* Book your call CTA */}
             <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
-              <Button variant="primary" size="lg">Book my 15-min call</Button>
+              <Button variant="primary" size="lg" onClick={scrollToCalendar}>Book my 15-min call</Button>
             </div>
 
             {/* Availability note */}
