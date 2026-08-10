@@ -86,7 +86,7 @@ function Shell({ children, onBack, litCount, blaze, backdrop, hideChrome }) {
           <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 24px', width: '100%', boxSizing: 'border-box' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '4px' }}>
               {onBack ? <Button variant="ghost" size="sm" onClick={onBack} style={{ color: 'var(--color-coral)' }}>Back</Button> : <span />}
-              <Button variant="ghost" size="sm" onClick={() => { window.location.href = '../landing/index.html'; }} style={{ color: 'var(--color-coral)' }}>Exit</Button>
+              <Button variant="ghost" size="sm" onClick={() => { window.location.href = '/'; }} style={{ color: 'var(--color-coral)' }}>Exit</Button>
             </div>
           </div>
         </div>
