@@ -169,9 +169,11 @@ function Atmosphere({ n, path, onAnswer, allDayRoute }) {
     ? [['RS', 'Start relaxed and let the energy build through the day'], ['RS', 'Fun and lively from the start'], ['MH', 'Relaxed and elegant'], ['MH', 'Sophisticated and classy']]
     : [['UTSD', 'A party that builds gradually until everyone\u2019s dancing by the end'], ['UTSD', 'Full-on party energy from the very first song'], ['VS', 'A dancefloor that feels more like a gig, everyone singing every word'], ['VS', 'High energy with a bit more edge and attitude']];
   const [sel, choose] = useAutoAdvance((i) => onAnswer(opts[i][0]));
-  const subtitle = allDayRoute ? (path === 'daytime' ? ' for the daytime' : ' for your evening party') : '';
+  const title = allDayRoute
+    ? (path === 'daytime' ? 'What atmosphere are you picturing for the daytime?' : 'What atmosphere are you picturing for your evening party?')
+    : 'What atmosphere are you picturing?';
   return (
-    <Question n={n} title={`What atmosphere are you picturing?${subtitle}`}>
+    <Question n={n} title={title}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {opts.map(([band, l], i) => <OptionCard key={i} label={l} selected={sel === i} onClick={() => choose(i)} />)}
       </div>
