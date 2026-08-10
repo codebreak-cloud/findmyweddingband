@@ -268,7 +268,7 @@ function Q9Q10({ onAnswer }) {
   );
 }
 
-function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName }) {
+function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName, partnerTaste }) {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
@@ -299,6 +299,7 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName 
         email,
         phone,
         partnerName,
+        partnerTaste,
         venue,
         weddingDate,
         path,
@@ -324,6 +325,7 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName 
         email,
         phone,
         partnerName,
+        partnerTaste,
         venue,
         weddingDate,
         tags,
@@ -1030,6 +1032,7 @@ function QuizApp({ backdrop }) {
   const [venue, setVenue] = React.useState('');
   const [weddingDate, setWeddingDate] = React.useState('');
   const [partnerName, setPartnerName] = React.useState('');
+  const [partnerTaste, setPartnerTaste] = React.useState('');
 
   function advance(nextStep, lit) {
     setStep(nextStep);
@@ -1053,10 +1056,10 @@ function QuizApp({ backdrop }) {
       {step === 'q4' && <Shell litCount={3} backdrop={backdrop} onBack={() => advance('q3', 2)}><SongPick n={4} path="daytime" onAnswer={(picks) => afterDaytime(scorePath(picks, DAYTIME_SONGS, atmoBand, path === 'all-day'), picks)} /></Shell>}
       {step === 'q5' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q4', 3)}><Atmosphere n={5} path="evening" allDayRoute={path === 'all-day'} onAnswer={(b) => { setAtmoBand(b); advance('q6', litCount + 1); }} /></Shell>}
       {step === 'q6' && <Shell litCount={litCount} backdrop={backdrop} onBack={() => advance('q5', litCount - 1)}><SongPick n={6} path="evening" onAnswer={(picks) => afterEvening(scorePath(picks, EVENING_SONGS, atmoBand), picks)} /></Shell>}
-      {step === 'q7' && <Shell litCount={6} backdrop={backdrop} onBack={() => advance('q6', litCount)}><TasteQuestion onAnswer={(data) => { setPartnerName(data.partnerName); advance('q8', 7); }} /></Shell>}
+      {step === 'q7' && <Shell litCount={6} backdrop={backdrop} onBack={() => advance('q6', litCount)}><TasteQuestion onAnswer={(data) => { setPartnerName(data.partnerName); setPartnerTaste(data.tasteSelection); advance('q8', 7); }} /></Shell>}
       {step === 'q8' && <Shell litCount={7} backdrop={backdrop} onBack={() => advance('q7', 6)}><Q8 onAnswer={(v) => advance(v === 'none' ? 'q11' : 'q9', 8)} /></Shell>}
       {step === 'q9' && <Shell litCount={8} backdrop={backdrop} onBack={() => advance('q8', 7)}><Q9Q10 onAnswer={(data) => { setVenue(data.venue); setWeddingDate(data.date); advance('q11', 10); }} /></Shell>}
-      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} results={results} path={path} venue={venue} weddingDate={weddingDate} partnerName={partnerName} /></Shell>}
+      {step === 'q11' && <Shell litCount={10} backdrop={backdrop} onBack={() => advance('q9', 8)}><LeadCapture onSubmit={() => advance('loading', 11)} results={results} path={path} venue={venue} weddingDate={weddingDate} partnerName={partnerName} partnerTaste={partnerTaste} /></Shell>}
       {step === 'loading' && <Shell hideChrome backdrop={backdrop}><Loading onDone={() => setStep('results')} /></Shell>}
       {step === 'results' && <Results results={results} backdrop={backdrop} />}
     </>
