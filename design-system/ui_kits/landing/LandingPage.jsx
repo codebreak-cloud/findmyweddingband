@@ -135,7 +135,7 @@ function Hero() {
             transform: `translate(${imgOffset.x}px, ${imgOffset.y}px)`,
             boxShadow: `0 ${8 + Math.abs(imgOffset.x) + Math.abs(imgOffset.y)}px ${20 + Math.abs(imgOffset.x) + Math.abs(imgOffset.y)}px rgba(0,0,0,${0.2 + (Math.abs(imgOffset.x) + Math.abs(imgOffset.y)) / 100})`
           }}>
-          <img src="../../assets/images/headshot-stephanie-david.jpg" alt="Stephanie & David" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="../../assets/images/stephanie-david-testimonial.png" alt="Stephanie & David" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       </div>
     </div>
