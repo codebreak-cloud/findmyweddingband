@@ -711,10 +711,12 @@ function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songP
           lineHeight: 'var(--lh-body)',
           margin: 0,
         }}>
-          Watch the video, see how they work, and book a quick call.
+          Watch the video, see how they work, and book a quick 15-minute call.
         </p>
-        <div style={{ marginTop: 'var(--space-4)' }}>
-          <Button variant="primary" size="lg" onClick={scrollToCalendar}>Book my call</Button>
+        <div style={{ marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ position: 'relative' }}>
+            <Button variant="primary" size="lg" onClick={scrollToCalendar} style={{ position: 'relative', zIndex: 2, backgroundColor: 'var(--color-coral)', fontWeight: 'var(--fw-bold)', boxShadow: '0 8px 24px rgba(199, 84, 104, 0.3)' }}>Book my call</Button>
+          </div>
         </div>
       </div>
 
@@ -870,11 +872,11 @@ function ctaCopy(results) {
   if (results.length === 2) {
     const day = results.find(r => r.path === 'daytime');
     const eve = results.find(r => r.path === 'evening');
-    return `Based on your answers, ${BANDS[day.result.winner].name} is a great fit for your daytime and ${BANDS[eve.result.winner].name} for your evening party. The best next step is a quick call - you can talk me through your plans, then I'll walk you through how both bands work together across your day.`;
+    return `Based on your answers, ${BANDS[day.result.winner].name} is a great fit for your daytime and ${BANDS[eve.result.winner].name} for your evening party. The best next step is a quick 15-minute call - you can talk me through your plans, then I'll walk you through how both bands work together across your day.`;
   }
   const band = BANDS[results[0].result.winner];
   const slot = results[0].path === 'daytime' ? 'daytime' : 'evening party';
-  return `Based on your answers, ${band.name} is a great fit for your ${slot}. The best next step is a quick call - you can talk me through your day and plans, then I'll walk you through the band, and tailor everything around your venue, vibe and guests.`;
+  return `Based on your answers, ${band.name} is a great fit for your ${slot}. The best next step is a quick 15-minute call - you can talk me through your day and plans, then I'll walk you through the band, and tailor everything around your venue, vibe and guests.`;
 }
 
 function Results({ results, backdrop }) {
