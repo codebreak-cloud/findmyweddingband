@@ -69,7 +69,7 @@ function Hero() {
 .bq-hero-tagline{font-family:var(--font-sans);font-weight:var(--fw-regular);font-size:16px;line-height:1.6;color:var(--color-paper);max-width:520px;margin:0 0 32px;animation:bq-rise 750ms var(--ease-settle) both;animation-delay:180ms}
 .bq-hero-cta{animation:bq-rise 750ms var(--ease-settle) both;animation-delay:280ms}
 .bq-hero-testi{position:relative;display:flex;gap:14px;align-items:flex-start;max-width:480px;margin:48px 0 0;padding-top:26px;border-top:1px solid rgba(255,253,251,0.2);animation:bq-rise 750ms var(--ease-settle) both;animation-delay:400ms}
-.bq-hero-testi-mark{flex:none;font-family:var(--font-script);font-size:2.75rem;line-height:0.5;color:var(--color-coral);opacity:0.85;transform:translateY(6px)}
+.bq-hero-testi-mark{flex:none;font-family:var(--font-script);font-size:2.75rem;line-height:0.5;color:rgba(255,253,251,0.4);opacity:0.85;transform:translateY(6px)}
 .bq-hero-testi-text{font-family:var(--font-sans);font-weight:var(--fw-regular);font-size:14px;line-height:1.5;color:rgba(255,253,251,0.88);margin:0}
 @media(min-width:900px){
 .bq-hero-text{padding:104px 40px 88px}
@@ -111,7 +111,13 @@ function Problem() {
         <div>
           <h2 style={{ fontSize: 'var(--fs-h1)', marginBottom: 'var(--space-6)' }}>Every wedding band says the same thing.</h2>
           <p style={{ fontSize: 'var(--fs-body-lg)', fontWeight: 'var(--fw-regular)', lineHeight: 'var(--lh-body)', color: 'var(--text-body)', marginBottom: 'var(--space-5)' }}>
-            Unforgettable, unique, showstopping. After the fifth showreel, they all blur into one. You've probably already spent hours scrolling through band after band, video after video, trying to picture how each one would actually feel on the day. It's meant to be exciting, but somewhere around the twentieth open tab it starts to all feel too overwhelming. This is the day you and your guests will remember year after year, and the band is the part they'll talk about most. You only get one chance to get it right.
+            "Unforgettable", "unique", "showstopping"... after the fifth showreel, they all blur into one.
+          </p>
+          <p style={{ fontSize: 'var(--fs-body-lg)', fontWeight: 'var(--fw-regular)', lineHeight: 'var(--lh-body)', color: 'var(--text-body)', marginBottom: 'var(--space-5)' }}>
+            You've probably already spent hours scrolling through band after band, video after video, trying to picture how each one would actually feel on the day. It's meant to be exciting, but somewhere around the twentieth open tab it starts to all feel too overwhelming.
+          </p>
+          <p style={{ fontSize: 'var(--fs-body-lg)', fontWeight: 'var(--fw-regular)', lineHeight: 'var(--lh-body)', color: 'var(--text-body)', marginBottom: 'var(--space-5)' }}>
+            This is the day you and your guests will remember year after year, and the band is the part they'll talk about most. You only get one chance to get it right.
           </p>
           <p style={{ fontSize: 'var(--fs-body-lg)', fontWeight: 'var(--fw-bold)', lineHeight: 'var(--lh-body)', color: 'var(--color-ink)' }}>
             The real question isn't which band looks good on paper. It's which one suits the day you're picturing, the songs you love, and the way you want your guests to feel on the dancefloor.
