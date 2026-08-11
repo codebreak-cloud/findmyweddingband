@@ -50,6 +50,36 @@ function DuotoneBand({ src, placeholder, height, tone = 'coral' }) {
 }
 
 function Hero() {
+  const [imgOffset, setImgOffset] = React.useState({ x: 0, y: 0 });
+  const imgRef = React.useRef(null);
+
+  const handleMouseMove = (e) => {
+    const rect = imgRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const distance = Math.sqrt(x * x + y * y);
+    if (distance < 100) {
+      setImgOffset({ x: x * 0.1, y: y * 0.1 });
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    const touch = e.touches[0];
+    const rect = imgRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = touch.clientX - rect.left - rect.width / 2;
+    const y = touch.clientY - rect.top - rect.height / 2;
+    const distance = Math.sqrt(x * x + y * y);
+    if (distance < 100) {
+      setImgOffset({ x: x * 0.1, y: y * 0.1 });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setImgOffset({ x: 0, y: 0 });
+  };
+
   return (
     <div className="bq-hero">
       <style>{`
@@ -89,7 +119,22 @@ function Hero() {
         <p className="bq-hero-tagline">The quiz that helps you discover the perfect style of band to suit your wedding, your vibe, and your guests.</p>
         <div className="bq-hero-cta"><Button variant="onInk" size="lg" onClick={() => { window.location.href = '../quiz/index.html'; }}>Find My Match</Button></div>
         <p className="bq-hero-testi"><span className="bq-hero-testi-mark" aria-hidden="true">&ldquo;</span><span className="bq-hero-testi-text">"This band made our wedding - I am biased but best wedding I've ever been to." - Stephanie &amp; David</span></p>
-        <div style={{ marginTop: 'var(--space-5)', width: '80px', height: '80px', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+        <div
+          ref={imgRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          onTouchMove={handleTouchMove}
+          style={{
+            marginTop: 'var(--space-5)',
+            width: '100px',
+            height: '100px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            cursor: 'pointer',
+            transition: 'box-shadow 150ms ease-out, transform 150ms ease-out',
+            transform: `translate(${imgOffset.x}px, ${imgOffset.y}px)`,
+            boxShadow: `0 ${8 + Math.abs(imgOffset.x) + Math.abs(imgOffset.y)}px ${20 + Math.abs(imgOffset.x) + Math.abs(imgOffset.y)}px rgba(0,0,0,${0.2 + (Math.abs(imgOffset.x) + Math.abs(imgOffset.y)) / 100})`
+          }}>
           <img src="../../assets/images/headshot-stephanie-david.jpg" alt="Stephanie & David" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       </div>
