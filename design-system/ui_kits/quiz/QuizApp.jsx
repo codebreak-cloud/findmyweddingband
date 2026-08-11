@@ -713,6 +713,9 @@ function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songP
         }}>
           Watch the video, see how they work, and book a quick call.
         </p>
+        <div style={{ marginTop: 'var(--space-4)' }}>
+          <Button variant="primary" size="lg" onClick={scrollToCalendar}>Book my call</Button>
+        </div>
       </div>
 
       {/* STAGE 4: Video and soft intro copy */}
@@ -876,6 +879,9 @@ function ctaCopy(results) {
 
 function Results({ results, backdrop }) {
   const calendarRef = React.useRef(null);
+  const scrollToCalendar = () => {
+    calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   return (
     <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--color-paper)' }}>
       <QuizBackdrop {...backdrop} />
