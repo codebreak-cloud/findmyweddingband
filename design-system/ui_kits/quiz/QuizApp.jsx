@@ -713,9 +713,13 @@ function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songP
         }}>
           Watch the video, see how they work, and book a quick 15-minute call.
         </p>
+        <style>{`
+          .book-call-btn { background-color: var(--color-coral) !important; }
+          .book-call-btn:hover { background-color: var(--color-coral) !important; }
+        `}</style>
         <div style={{ marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'center' }}>
           <div style={{ position: 'relative' }}>
-            <Button variant="primary" size="lg" onClick={scrollToCalendar} style={{ position: 'relative', zIndex: 2, backgroundColor: 'var(--color-coral)', fontWeight: 'var(--fw-bold)', boxShadow: '0 8px 24px rgba(199, 84, 104, 0.3)' }}>Book my call</Button>
+            <Button className="book-call-btn" variant="primary" size="lg" onClick={scrollToCalendar} style={{ position: 'relative', zIndex: 2, fontWeight: 'var(--fw-bold)', boxShadow: '0 8px 24px rgba(199, 84, 104, 0.3)' }}>Book my call</Button>
           </div>
         </div>
       </div>
