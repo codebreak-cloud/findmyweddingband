@@ -876,9 +876,6 @@ function ctaCopy(results) {
 
 function Results({ results, backdrop }) {
   const calendarRef = React.useRef(null);
-  const scrollToCalendar = () => {
-    calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
   return (
     <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--color-paper)' }}>
       <QuizBackdrop {...backdrop} />
@@ -1005,11 +1002,6 @@ function Results({ results, backdrop }) {
               <iframe src="https://boujee-music.as.me/wedding-band-discovery-call-qz" width="100%" height="800" frameBorder="0" allow="payment" style={{ display: 'block' }}></iframe>
             </div>
             <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
-
-            {/* Book your call CTA */}
-            <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
-              <Button variant="primary" size="lg" onClick={scrollToCalendar}>Book my 15-min call</Button>
-            </div>
 
             {/* Availability note */}
             <p style={{
