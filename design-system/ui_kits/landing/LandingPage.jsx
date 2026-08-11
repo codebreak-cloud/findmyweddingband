@@ -381,8 +381,75 @@ function FinalCTA() {
   );
 }
 
+function CookieBanner() {
+  const [isVisible, setIsVisible] = React.useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !localStorage.getItem('cookie-consent');
+  });
+
+  const handleAccept = () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    setIsVisible(false);
+  };
+
+  const handleReject = () => {
+    localStorage.setItem('cookie-consent', 'rejected');
+    setIsVisible(false);
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: 'var(--color-ink)',
+      borderTop: '1px solid rgba(255,253,251,0.2)',
+      padding: 'var(--space-5)',
+      zIndex: 9999,
+      boxShadow: '0 -4px 12px rgba(0,0,0,0.3)',
+    }}>
+      <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-5)', flexWrap: 'wrap' }}>
+        <p style={{ margin: 0, fontSize: 'var(--fs-small)', color: 'rgba(255,253,251,0.8)', flex: 1, minWidth: '250px' }}>
+          We use cookies to enhance your experience. By continuing, you accept our <a href="https://boujeemusic.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-coral)', textDecoration: 'underline' }}>privacy policy</a>.
+        </p>
+        <div style={{ display: 'flex', gap: 'var(--space-3)', flexShrink: 0 }}>
+          <button onClick={handleReject} style={{
+            padding: '8px 16px',
+            backgroundColor: 'transparent',
+            border: '1px solid rgba(255,253,251,0.3)',
+            color: 'rgba(255,253,251,0.8)',
+            borderRadius: 'var(--radius-sm)',
+            cursor: 'pointer',
+            fontSize: 'var(--fs-small)',
+            fontWeight: 'var(--fw-medium)',
+            transition: 'all 200ms ease-out',
+          }} onMouseEnter={(e) => { e.target.style.borderColor = 'rgba(255,253,251,0.6)'; e.target.style.color = 'rgba(255,253,251,1)'; }} onMouseLeave={(e) => { e.target.style.borderColor = 'rgba(255,253,251,0.3)'; e.target.style.color = 'rgba(255,253,251,0.8)'; }}>
+            Reject
+          </button>
+          <button onClick={handleAccept} style={{
+            padding: '8px 16px',
+            backgroundColor: 'var(--color-coral)',
+            border: 'none',
+            color: 'var(--color-ink)',
+            borderRadius: 'var(--radius-sm)',
+            cursor: 'pointer',
+            fontSize: 'var(--fs-small)',
+            fontWeight: 'var(--fw-bold)',
+            transition: 'all 200ms ease-out',
+          }} onMouseEnter={(e) => { e.target.style.filter = 'brightness(1.1)'; }} onMouseLeave={(e) => { e.target.style.filter = 'brightness(1)'; }}>
+            Accept
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function LandingPage() {
-  return (<><Hero /><Problem /><HowItWorks /><WhatsWaiting /><Testimonials /><FAQ /><FinalCTA /></>);
+  return (<><CookieBanner /><Hero /><Problem /><HowItWorks /><WhatsWaiting /><Testimonials /><FAQ /><FinalCTA /></>);
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<LandingPage />);
