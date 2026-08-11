@@ -714,8 +714,10 @@ function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songP
           Watch the video, see how they work, and book a quick 15-minute call.
         </p>
         <style>{`
-          .book-call-btn { background-color: var(--color-coral) !important; }
-          .book-call-btn:hover { background-color: var(--color-coral) !important; }
+          .book-call-btn { background-color: var(--color-coral) !important; border-color: var(--color-coral) !important; }
+          .book-call-btn:hover, .book-call-btn:active, .book-call-btn:focus { background-color: var(--color-coral) !important; border-color: var(--color-coral) !important; }
+          .book-call-btn button { background-color: var(--color-coral) !important; }
+          .book-call-btn button:hover { background-color: var(--color-coral) !important; }
         `}</style>
         <div style={{ marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'center' }}>
           <div style={{ position: 'relative' }}>
