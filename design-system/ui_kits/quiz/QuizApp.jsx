@@ -597,7 +597,7 @@ function MatchBadge({ percent, size = 220 }) {
   );
 }
 
-function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songPicks }) {
+function ResultBlock({ result, path, isFirst, hideExclusivity, atmosphere, songPicks, scrollToCalendar }) {
   const band = BANDS[result.winner];
   const article = /^[aeiou]/i.test(band.genre) ? 'an' : 'a';
   const isDaytime = path === 'daytime';
@@ -894,7 +894,7 @@ function Results({ results, backdrop }) {
 
         {/* Result blocks */}
         <div style={{ maxWidth: 'var(--container-narrow)', margin: '0 auto', padding: '0 var(--space-5) var(--space-9)' }}>
-          {[...results].sort((a, b) => a.path === 'daytime' ? -1 : 1).map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} hideExclusivity={results.length > 1} atmosphere={r.atmosphere} songPicks={r.songPicks} />)}
+          {[...results].sort((a, b) => a.path === 'daytime' ? -1 : 1).map((r, i) => <ResultBlock key={i} result={r.result} path={r.path} isFirst={i === 0} hideExclusivity={results.length > 1} atmosphere={r.atmosphere} songPicks={r.songPicks} scrollToCalendar={scrollToCalendar} />)}
 
           {/* Shared exclusivity box for all-day routes */}
           {results.length > 1 && (
