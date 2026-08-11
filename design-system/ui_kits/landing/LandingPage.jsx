@@ -60,7 +60,7 @@ function Hero() {
     const y = e.clientY - rect.top - rect.height / 2;
     const distance = Math.sqrt(x * x + y * y);
     if (distance < 100) {
-      setImgOffset({ x: x * 0.1, y: y * 0.1 });
+      setImgOffset({ x: x * 0.03, y: y * 0.03 });
     }
   };
 
@@ -72,7 +72,7 @@ function Hero() {
     const y = touch.clientY - rect.top - rect.height / 2;
     const distance = Math.sqrt(x * x + y * y);
     if (distance < 100) {
-      setImgOffset({ x: x * 0.1, y: y * 0.1 });
+      setImgOffset({ x: x * 0.03, y: y * 0.03 });
     }
   };
 
