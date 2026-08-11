@@ -90,7 +90,7 @@ function Hero() {
         <div className="bq-hero-cta"><Button variant="onInk" size="lg" onClick={() => { window.location.href = '../quiz/index.html'; }}>Find My Match</Button></div>
         <p className="bq-hero-testi"><span className="bq-hero-testi-mark" aria-hidden="true">&ldquo;</span><span className="bq-hero-testi-text">"This band made our wedding - I am biased but best wedding I've ever been to." - Stephanie &amp; David</span></p>
         <div style={{ marginTop: 'var(--space-5)', width: '80px', height: '80px', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
-          <img src="../../assets/images/L - Headshot - Stephanie & David headshot - BM230656 - first dance.jpg" alt="Stephanie & David" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="../../assets/images/L%20-%20Headshot%20-%20Stephanie%20&%20David%20headshot%20-%20BM230656%20-%20first%20dance.jpg" alt="Stephanie & David" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       </div>
     </div>
