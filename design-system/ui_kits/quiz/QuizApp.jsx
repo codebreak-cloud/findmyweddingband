@@ -146,7 +146,7 @@ function DjExit({ onBackIn }) {
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center' }}>
         <Button variant="onInk" size="lg" onClick={onBackIn}>Actually, show me what live band could suit us</Button>
-        <Button variant="ghost" size="sm" style={{ color: 'var(--color-coral)' }} onClick={() => { window.location.href = '../landing/index.html'; }}>No thanks, that's not for us</Button>
+        <Button variant="ghost" size="sm" style={{ color: 'var(--color-coral)' }} onClick={() => { window.location.href = '/'; }}>No thanks, that's not for us</Button>
       </div>
     </div>
   );

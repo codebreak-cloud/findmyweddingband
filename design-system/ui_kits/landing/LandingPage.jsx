@@ -117,7 +117,7 @@ function Hero() {
       <div className="bq-hero-text">
         <h1 className="bq-hero-headline">The Wedding Band Matchmaker</h1>
         <p className="bq-hero-tagline">The quiz that helps you discover the perfect style of band to suit your wedding, your vibe, and your guests.</p>
-        <div className="bq-hero-cta"><Button variant="onInk" size="lg" onClick={() => { window.location.href = '../quiz/index.html'; }}>Find My Match</Button></div>
+        <div className="bq-hero-cta"><Button variant="onInk" size="lg" onClick={() => { window.location.href = '/quiz'; }}>Find My Match</Button></div>
         <p className="bq-hero-testi"><span className="bq-hero-testi-mark" aria-hidden="true">&ldquo;</span><span className="bq-hero-testi-text">"This band made our wedding - I am biased but best wedding I've ever been to." - Stephanie &amp; David</span></p>
         <div
           ref={imgRef}
@@ -374,7 +374,7 @@ function FinalCTA() {
         }}>
           <h2 style={{ color: 'var(--color-paper)', fontSize: 'var(--fs-h1)', marginBottom: 'var(--space-3)' }}>Ready to find your match?</h2>
           <p style={{ color: 'var(--color-coral)', fontWeight: 'var(--fw-semibold)', marginBottom: 'var(--space-6)' }}>Two minutes. One genuinely calculated match.</p>
-          <Button variant="onInk" size="lg" onClick={() => { window.location.href = '../quiz/index.html'; }}>Find My Match</Button>
+          <Button variant="onInk" size="lg" onClick={() => { window.location.href = '/quiz'; }}>Find My Match</Button>
         </div>
       </Section>
     </div>
