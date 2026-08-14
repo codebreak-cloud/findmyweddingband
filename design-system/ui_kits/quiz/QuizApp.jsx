@@ -369,9 +369,9 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName,
       `}</style>
       <p style={{ color: 'rgba(255,253,251,0.7)', fontSize: 'var(--fs-small)', marginTop: -16, marginBottom: 24 }}>Your match is calculated and ready right behind this.</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 12 }} data-q11-section>
-        <Input label="Name" placeholder="e.g. Sarah" value={name} onChange={e => setName(e.target.value)} />
-        <Input label="Email" type="email" placeholder="e.g. sarah@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-        <Input label="Phone" type="tel" placeholder="e.g. +44 20 7946 0958" value={phone} onChange={e => setPhone(e.target.value)} />
+        <Input label="Name" placeholder="e.g. Sarah" value={name} onChange={e => setName(e.target.value)} autoComplete="name" />
+        <Input label="Email" type="email" placeholder="e.g. sarah@example.com" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" />
+        <Input label="Phone" type="tel" placeholder="e.g. +44 20 7946 0958" value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" />
       </div>
       <p style={{ fontSize: 'var(--fs-meta)', color: 'rgba(255,253,251,0.6)', marginBottom: 20 }}>By submitting your details, you're giving us permission to contact you about your match. See our <a href="https://boujeemusic.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-coral)', textDecoration: 'none', borderBottom: '1px solid var(--color-coral)' }}>privacy policy</a> for more.</p>
       <Button variant="onInk" size="lg" disabled={!name || !isValidEmail(email) || !isValidPhone(phone) || isSubmitting} onClick={handleSubmit}>{isSubmitting ? 'Submitting...' : 'Reveal my match'}</Button>
