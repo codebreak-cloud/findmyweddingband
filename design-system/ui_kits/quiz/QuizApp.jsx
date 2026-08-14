@@ -282,7 +282,8 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName,
   };
 
   const isValidPhone = (phoneStr) => {
-    return phoneStr.trim().length > 0;
+    const cleaned = phoneStr.trim();
+    return cleaned.length > 0 && /^[\d\s\-\+()]+$/.test(cleaned);
   };
 
   const handleSubmit = async () => {
