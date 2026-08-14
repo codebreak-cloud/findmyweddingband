@@ -281,6 +281,10 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName,
     return emailRegex.test(emailStr);
   };
 
+  const isValidPhone = (phoneStr) => {
+    return phoneStr.trim().length > 0;
+  };
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
@@ -370,7 +374,7 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName,
         <Input label="Phone" type="tel" placeholder="e.g. +44 20 7946 0958" value={phone} onChange={e => setPhone(e.target.value)} />
       </div>
       <p style={{ fontSize: 'var(--fs-meta)', color: 'rgba(255,253,251,0.6)', marginBottom: 20 }}>By submitting your details, you're giving us permission to contact you about your match. See our <a href="https://boujeemusic.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-coral)', textDecoration: 'none', borderBottom: '1px solid var(--color-coral)' }}>privacy policy</a> for more.</p>
-      <Button variant="onInk" size="lg" disabled={!name || !isValidEmail(email) || isSubmitting} onClick={handleSubmit}>{isSubmitting ? 'Submitting...' : 'Reveal my match'}</Button>
+      <Button variant="onInk" size="lg" disabled={!name || !isValidEmail(email) || !isValidPhone(phone) || isSubmitting} onClick={handleSubmit}>{isSubmitting ? 'Submitting...' : 'Reveal my match'}</Button>
     </Question>
   );
 }
