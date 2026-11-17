@@ -376,7 +376,7 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName,
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 12 }} data-q11-section>
         <Input label="Name" placeholder="e.g. Sarah" value={name} onChange={e => setName(e.target.value)} autoComplete="name" />
         <Input label="Email" type="email" placeholder="e.g. sarah@example.com" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" />
-        <Input label="Phone" type="tel" placeholder="e.g. +44 20 7946 0958" value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" error={phone && !isValidPhone(phone) ? "Please enter a valid UK mobile number, e.g. 07123 456789 or +44 7123 456789." : undefined} />
+        <Input label="Your WhatsApp number (we'll send your band matches here)" type="tel" placeholder="e.g. 07123 456789" value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" error={phone && !isValidPhone(phone) ? "Please enter a valid UK mobile number, e.g. 07123 456789 or +44 7123 456789." : undefined} />
       </div>
       <p style={{ fontSize: 'var(--fs-meta)', color: 'rgba(255,253,251,0.6)', marginBottom: 20 }}>By submitting your details, you're giving us permission to contact you about your match. See our <a href="https://boujeemusic.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-coral)', textDecoration: 'none', borderBottom: '1px solid var(--color-coral)' }}>privacy policy</a> for more.</p>
       <Button variant="onInk" size="lg" disabled={!name || !isValidEmail(email) || !isValidPhone(phone) || isSubmitting} onClick={handleSubmit}>{isSubmitting ? 'Submitting...' : 'Reveal my match'}</Button>
