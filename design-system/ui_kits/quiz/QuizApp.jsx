@@ -281,9 +281,13 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName,
     return emailRegex.test(emailStr);
   };
 
+  // UK mobile pattern check: 07 + [1-5,7-9] + 8 digits, or +44/44 followed by 7 + [1-5,7-9] + 8 digits.
+  // Spaces, hyphens, brackets and full stops are ignored. Rejects 5+ of the same digit in a row (e.g. 07777 777777).
   const isValidPhone = (phoneStr) => {
-    const cleaned = phoneStr.trim();
-    return cleaned.length > 0 && /^[\d\s\-\+()]+$/.test(cleaned);
+    const digits = phoneStr.trim().replace(/[\s\-().]/g, '');
+    if (!/^(07[1-5789]\d{8}|\+447[1-5789]\d{8}|447[1-5789]\d{8})$/.test(digits)) return false;
+    const subscriber = digits.replace(/^(\+?44|0)/, '');
+    return !/(\d)\1{4,}/.test(subscriber);
   };
 
   const handleSubmit = async () => {
@@ -372,7 +376,7 @@ function LeadCapture({ onSubmit, results, path, venue, weddingDate, partnerName,
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 12 }} data-q11-section>
         <Input label="Name" placeholder="e.g. Sarah" value={name} onChange={e => setName(e.target.value)} autoComplete="name" />
         <Input label="Email" type="email" placeholder="e.g. sarah@example.com" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" />
-        <Input label="Phone" type="tel" placeholder="e.g. +44 20 7946 0958" value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" />
+        <Input label="Phone" type="tel" placeholder="e.g. +44 20 7946 0958" value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" error={phone && !isValidPhone(phone) ? "Please enter a valid UK mobile number, e.g. 07123 456789 or +44 7123 456789." : undefined} />
       </div>
       <p style={{ fontSize: 'var(--fs-meta)', color: 'rgba(255,253,251,0.6)', marginBottom: 20 }}>By submitting your details, you're giving us permission to contact you about your match. See our <a href="https://boujeemusic.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-coral)', textDecoration: 'none', borderBottom: '1px solid var(--color-coral)' }}>privacy policy</a> for more.</p>
       <Button variant="onInk" size="lg" disabled={!name || !isValidEmail(email) || !isValidPhone(phone) || isSubmitting} onClick={handleSubmit}>{isSubmitting ? 'Submitting...' : 'Reveal my match'}</Button>
